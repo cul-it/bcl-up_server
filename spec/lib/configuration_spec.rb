@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe QaServer::Configuration do
+RSpec.describe BCLUpServer::Configuration do
   let(:config) { described_class.new }
 
   describe '#preferred_time_zone_name' do

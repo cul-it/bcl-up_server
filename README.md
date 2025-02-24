@@ -1,4 +1,4 @@
-# QaServer
+# BCL-UP Server
 
 This rails engine can be installed into your app to serve as a Questioning Authority (QA) Server for accessing external authorities.  It is part of a larger architecture supporting linked data authority access.  From this engine, you can send a search query and get back multiple results OR you can fetch a single term.  The engine provides UI for monitoring connections to configured authorities and the ability to check the current status of a single authority to determine if it is up and running now. 
 
@@ -8,7 +8,7 @@ This rails engine can be installed into your app to serve as a Questioning Autho
 * [Authority aggregation and indexing](https://wiki.duraspace.org/display/ld4lLABS/Authority+aggregation+and+indexing) document describes the technology used for caching authority data.
 * [samvera/questioning_authority](https://github.com/samvera/questioning_authority) (QA) is the gem that provides access to external authorities and normalizes the results.  See the [Linked Open Data (LOD) Authorities](https://github.com/samvera/questioning_authority#linked-open-data-lod-authorities) section for details on the primary part of QA that is used by this engine.
 * [ruby-rdf/linkeddata](https://github.com/ruby-rdf/linkeddata) is a gem that processes linked data in a number of RDF formats.
-* [LD4P/linked_data_authorities](https://github.com/LD4P/linked_data_authorities) holds predefined Questioning Authority configurations that work with this qa_server engine.
+* [LD4P/linked_data_authorities](https://github.com/LD4P/linked_data_authorities) holds predefined Questioning Authority configurations that work with this bcl_up_server engine.
 
 
 ## Setup
@@ -23,7 +23,7 @@ Tested with...
 ### Optional Prerequisites
 
 Only required if you want to generate status charts.  Generated charts will be saved in 
-`app/assets/images/qa_server/charts` directory.  By default status is displayed in a table.
+`app/assets/images/bcl_up_server/charts` directory.  By default status is displayed in a table.
 
 1. [ImageMagick](http://www.imagemagick.org/)
 2. job queue processor of your choice
@@ -35,7 +35,7 @@ Only required if you want to generate status charts.  Generated charts will be s
 Add these lines to your application's Gemfile:
 
 ```ruby
-gem 'qa_server'
+gem 'bcl_up_server'
 gem 'qa'
 ```
 
@@ -48,13 +48,13 @@ $ bundle
 Or install it yourself as:
 
 ```bash
-$ gem install qa_server
+$ gem install bcl_up_server
 ```
 
 #### Install the engine and run migrations
 
 ```bash
-$ rails g qa_server:install
+$ rails g bcl_up_server:install
 $ rake db:migrate
 ```
 
@@ -152,7 +152,7 @@ Configurations exist for a number of other common authorities that can be used b
 * _AUTHORITY_NAME__direct - configuration can be used as is to access the external authority directly
 * _AUTHORITY_NAME__ld4l_cache - configuration can be used as is to access the authorities through the cache created as part of the Linked Data for Libraries Labs grant and continuing to be expanded under the Linked Data for Production 2 grant.
 
-Configurations define how to access an authority and how to decode the ontology predicates to extract and convert the data to normalized data.  The predefined configurations live in [qa_server/config/authorities/linked_data](https://github.com/LD4P/qa_server/tree/master/config/authorities/linked_data).
+Configurations define how to access an authority and how to decode the ontology predicates to extract and convert the data to normalized data.  The predefined configurations live in [bcl_up_server/config/authorities/linked_data](https://github.com/LD4P/qa_server/tree/master/config/authorities/linked_data).
 
 ### Write your own configuration
 

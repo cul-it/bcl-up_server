@@ -12,21 +12,21 @@ module PrependedRdf::RdfGraph
   #   Set set graph name of each loaded statement
   # @return [void]
   def load(url, graph_name: nil, **options) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    return super if QaServer.config.suppress_performance_gathering?
+    return super if BCLUpServer.config.suppress_performance_gathering?
 
     raise TypeError, "#{self} is immutable" if immutable?
     phid, real_url = parse_phid(url)
     performance_udpates = {}
-    start_time_s = QaServer::TimeService.current_time_s
+    start_time_s = BCLUpServer::TimeService.current_time_s
 
     reader_options = { base_uri: real_url }.merge(options)
     reader = RDF::Reader.open(real_url, **reader_options)
 
-    end_time_s = QaServer::TimeService.current_time_s
+    end_time_s = BCLUpServer::TimeService.current_time_s
     performance_udpates[:retrieve_time_ms] = (end_time_s - start_time_s) * 1000
-    QaServer.config.performance_tracker.write "#{format('%.6f', end_time_s - start_time_s)}, " # read data
+    BCLUpServer.config.performance_tracker.write "#{format('%.6f', end_time_s - start_time_s)}, " # read data
 
-    start_time_s = QaServer::TimeService.current_time_s
+    start_time_s = BCLUpServer::TimeService.current_time_s
 
     if graph_name
       statements = []
@@ -41,10 +41,10 @@ module PrependedRdf::RdfGraph
       nil
     end
 
-    end_time_s = QaServer::TimeService.current_time_s
+    end_time_s = BCLUpServer::TimeService.current_time_s
     performance_udpates[:graph_load_time_ms] = (end_time_s - start_time_s) * 1000
-    QaServer.config.performance_cache.update(id: phid, updates: performance_udpates)
-    QaServer.config.performance_tracker.write "#{format('%.6f', end_time_s - start_time_s)}, " # load graph
+    BCLUpServer.config.performance_cache.update(id: phid, updates: performance_udpates)
+    BCLUpServer.config.performance_tracker.write "#{format('%.6f', end_time_s - start_time_s)}, " # load graph
   end
 
 private

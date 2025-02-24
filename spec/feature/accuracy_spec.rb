@@ -6,15 +6,15 @@ RSpec.describe 'Accuracy test' do # rubocop:disable RSpec/DescribeClass
   before(:all) { WebMock.allow_net_connect! }
   after(:all) { WebMock.disable_net_connect! }
 
-  let(:authority_list) { QaServer::AuthorityListerService.authorities_list }
+  let(:authority_list) { BCLUpServer::AuthorityListerService.authorities_list }
   let(:authority_name) { :CERL_LD4L_CACHE }
 
   describe 'for authority:' do
-    @status_log = QaServer::ScenarioLogger.new
-    QaServer::AuthorityListerService.authorities_list.each do |authority_name| # rubocop:disable Style/MultilineIfModifier
-      QaServer::AuthorityValidatorService.run(authority_name: authority_name,
+    @status_log = BCLUpServer::ScenarioLogger.new
+    BCLUpServer::AuthorityListerService.authorities_list.each do |authority_name| # rubocop:disable Style/MultilineIfModifier
+      BCLUpServer::AuthorityValidatorService.run(authority_name: authority_name,
                                               status_log: @status_log,
-                                              validation_type: QaServer::ScenarioValidator::VALIDATE_ACCURACY)
+                                              validation_type: BCLUpServer::ScenarioValidator::VALIDATE_ACCURACY)
     end unless ENV['TRAVIS']
     @status_log.each do |test_result|
       context "#{test_result[:authority_name]}:#{test_result[:subauthority_name]}:#{test_result[:request_data]}:" do
