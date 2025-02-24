@@ -1,21 +1,21 @@
 Lint/RescueException:
   Exclude:
-    - 'app/services/qa_server/scenarios_loader_service.rb'
-    - 'app/services/qa_server/authority_loader_service.rb'
-    - 'app/validators/qa_server/scenario_validator.rb'
-    - 'app/validators/qa_server/search_scenario_validator.rb'
+    - 'app/services/bcl_up_server/scenarios_loader_service.rb'
+    - 'app/services/bcl_up_server/authority_loader_service.rb'
+    - 'app/validators/bcl_up_server/scenario_validator.rb'
+    - 'app/validators/bcl_up_server/search_scenario_validator.rb'
 
 Lint/UnusedMethodArgument:
   Exclude:
-    - 'app/models/qa_server/authority_scenario.rb'
+    - 'app/models/bcl_up_server/authority_scenario.rb'
 
 Style/SpecialGlobalVars:
   Exclude:
-    - 'tasks/qa_server_dev.rake'
+    - 'tasks/bcl_up_server_dev.rake'
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
 Layout/HashAlignment:
   Exclude:
-    - 'spec/presenters/qa_server/monitor_status/history_presenter_spec.rb'
+    - 'spec/presenters/bcl_up_server/monitor_status/history_presenter_spec.rb'

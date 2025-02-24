@@ -11,18 +11,18 @@ AllCops:
     - 'script/**/*'
     - 'spec/test_app_templates/**/*'
     - 'vendor/**/*'
-    - 'lib/qa_server/specs/**/*'
+    - 'lib/bcl_up_server/specs/**/*'
 
 Lint/ImplicitStringConcatenation:
   Exclude:
-    - 'lib/generators/qa_server/**/*'
+    - 'lib/generators/bcl_up_server/**/*'
 
 Metrics/BlockLength:
   ExcludedMethods: ['included']
   Exclude:
-    - 'qa_server.gemspec'
+    - 'bcl_up_server.gemspec'
     - 'spec/**/*.rb'
 
 Metrics/ClassLength:
   Exclude:
-    - 'lib/qa_server/configuration.rb'
+    - 'lib/bcl_up_server/configuration.rb'
