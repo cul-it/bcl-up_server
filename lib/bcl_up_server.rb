@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 require 'bcl_up_server/engine'
 require 'bcl_up_server/version'
-#=================== TODO ================
-require 'bcl_up_server/configuration' # Explicit require TODO: Look at removing later
-
 require 'user_agent'
 require 'deprecation'
 
 module BCLUpServer
-  #=================== TODO ================
-  # extend ActiveSupport::Autoload
-  #
+  extend ActiveSupport::Autoload
   extend Deprecation
 
   self.deprecation_horizon = 'cul-it/BCLUpServer v6.0.0'
@@ -25,7 +20,10 @@ module BCLUpServer
   # @return [Qa::Configuration]
   # @see Qa::Configuration for configuration options
   def self.config(&block)
+    puts "############# CONFIG ###############"
     @config ||= BCLUpServer::Configuration.new
+    puts "############# @config  ###############"
+    puts @config
 
     yield @config if block
 
