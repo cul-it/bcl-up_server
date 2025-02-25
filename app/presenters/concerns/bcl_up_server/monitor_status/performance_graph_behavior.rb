@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # This module provides methods for creating and accessing performance graphs.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   module PerformanceGraphBehavior # rubocop:disable Metrics/ModuleLength
-    include BCLUpServer::PerformanceHistoryDataKeys
+    include BclUpServer::PerformanceHistoryDataKeys
 
     def performance_graphs
-      auth_list = BCLUpServer::AuthorityListerService.authorities_list
+      auth_list = BclUpServer::AuthorityListerService.authorities_list
       graphs = []
       performance_graphs_for_authority(graphs, ALL_AUTH)
       auth_list.each { |auth_name| performance_graphs_for_authority(graphs, auth_name) }
@@ -87,9 +87,9 @@ module BCLUpServer::MonitorStatus
 
     def default_graph?(graph_info) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       return false unless performance_all_actions_graph?(graph_info)
-      return true if BCLUpServer.config.performance_graph_default_time_period == :day && performance_day_graph?(graph_info)
-      return true if BCLUpServer.config.performance_graph_default_time_period == :month && performance_month_graph?(graph_info)
-      return true if BCLUpServer.config.performance_graph_default_time_period == :year && performance_year_graph?(graph_info)
+      return true if BclUpServer.config.performance_graph_default_time_period == :day && performance_day_graph?(graph_info)
+      return true if BclUpServer.config.performance_graph_default_time_period == :month && performance_month_graph?(graph_info)
+      return true if BclUpServer.config.performance_graph_default_time_period == :year && performance_year_graph?(graph_info)
       false
     end
 
@@ -111,8 +111,8 @@ module BCLUpServer::MonitorStatus
     end
 
     def performance_for_day_graph(auth_name, action)
-      filepath = BCLUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :day)
-      exists = BCLUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :day)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :day)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :day)
       {
         action: action,
         time_period: :day,
@@ -125,8 +125,8 @@ module BCLUpServer::MonitorStatus
     end
 
     def performance_for_month_graph(auth_name, action)
-      filepath = BCLUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :month)
-      exists = BCLUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :month)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :month)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :month)
       {
         action: action,
         time_period: :month,
@@ -139,8 +139,8 @@ module BCLUpServer::MonitorStatus
     end
 
     def performance_for_year_graph(auth_name, action)
-      filepath = BCLUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :year)
-      exists = BCLUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :year)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :year)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :year)
       {
         action: action,
         time_period: :year,

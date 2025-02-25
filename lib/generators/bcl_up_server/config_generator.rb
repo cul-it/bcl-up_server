@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails/generators'
 
-class BCLUpServer::ConfigGenerator < Rails::Generators::Base
+class BclUpServer::ConfigGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   desc """

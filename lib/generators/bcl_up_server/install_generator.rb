@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-module BCLUpServer
+module BclUpServer
   class Install < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
 
     desc """
   This generator makes the following changes to your application:
   1. Runs bcl_up_server:models:install
-  2. Injects BCLUpServer routes
+  2. Injects BclUpServer routes
   3. Installs bcl_up_server assets
          """
 
@@ -29,7 +29,7 @@ module BCLUpServer
 
       inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do\n/ do
         "  mount Qa::Engine => '/authorities'\n"\
-        "  mount BCLUpServer::Engine, at: '/'\n"\
+        "  mount BclUpServer::Engine, at: '/'\n"\
         "  resources :welcome, only: 'index'\n"\
         "  root 'bcl_up_server/homepage#index'\n"
       end

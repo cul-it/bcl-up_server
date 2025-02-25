@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 # This class sets creates the performance graphs for each authority during day, month, and year time periods for fetch and search actions.
-module BCLUpServer
+module BclUpServer
   class PerformanceGraphingService
     class << self
-      include BCLUpServer::PerformanceHistoryDataKeys
-      include BCLUpServer::GruffGraph
+      include BclUpServer::PerformanceHistoryDataKeys
+      include BclUpServer::GruffGraph
 
       class_attribute :authority_list_class
-      self.authority_list_class = BCLUpServer::AuthorityListerService
+      self.authority_list_class = BclUpServer::AuthorityListerService
 
       # @param authority_name [String] name of the authority
       # @param action [Symbol] action performed by the request (e.g. :search, :fetch, :all_actions)
@@ -30,7 +30,7 @@ module BCLUpServer
       # @param authority_name [String] name of the authority
       # @param action [Symbol] action performed by the request (e.g. :search, :fetch, :all_actions)
       # @param data [Hash] data to use to generate the graph
-      # @see BCLUpServer::PerformanceGraphDataService.calculate_last_12_months
+      # @see BclUpServer::PerformanceGraphDataService.calculate_last_12_months
       def generate_year_graph(authority_name: ALL_AUTH, action:, data:)
         gruff_data = rework_performance_data_for_gruff(data, BY_MONTH)
         create_gruff_graph(gruff_data,
@@ -43,7 +43,7 @@ module BCLUpServer
       # @param authority_name [String] name of the authority
       # @param action [Symbol] action performed by the request (e.g. :search, :fetch, :all_actions)
       # @param data [Hash] data to use to generate the graph
-      # @see BCLUpServer::PerformanceGraphDataService.calculate_last_30_days
+      # @see BclUpServer::PerformanceGraphDataService.calculate_last_30_days
       def generate_month_graph(authority_name: ALL_AUTH, action:, data:)
         gruff_data = rework_performance_data_for_gruff(data, BY_DAY)
         create_gruff_graph(gruff_data,
@@ -55,7 +55,7 @@ module BCLUpServer
       # @param authority_name [String] name of the authority
       # @param action [Symbol] action performed by the request (e.g. :search, :fetch, :all_actions)
       # @param data [Hash] data to use to generate the graph
-      # @see BCLUpServer::PerformanceGraphDataService.calculate_last_24_hours
+      # @see BclUpServer::PerformanceGraphDataService.calculate_last_24_hours
       def generate_day_graph(authority_name: ALL_AUTH, action:, data:)
         gruff_data = rework_performance_data_for_gruff(data, BY_HOUR)
         create_gruff_graph(gruff_data,
@@ -100,15 +100,15 @@ module BCLUpServer
 
       def performance_graph_theme(g, x_axis_label)
         g.theme_pastel
-        g.colors = [BCLUpServer.config.performance_normalization_color,
-                    BCLUpServer.config.performance_graph_load_color,
-                    BCLUpServer.config.performance_retrieve_color]
+        g.colors = [BclUpServer.config.performance_normalization_color,
+                    BclUpServer.config.performance_graph_load_color,
+                    BclUpServer.config.performance_retrieve_color]
         g.marker_font_size = 12
         g.x_axis_increment = 10
         g.x_axis_label = x_axis_label
         g.y_axis_label = I18n.t('bcl_up_server.monitor_status.performance.y_axis_ms')
         g.minimum_value = 0
-        g.maximum_value = BCLUpServer.config.performance_y_axis_max
+        g.maximum_value = BclUpServer.config.performance_y_axis_max
       end
 
       def create_gruff_graph(performance_data, performance_graph_full_path, x_axis_label)
@@ -124,7 +124,7 @@ module BCLUpServer
       def log_failure(authority_name, action, time_period)
         relative_path = performance_graph_image_path(authority_name: authority_name, action: action, time_period: time_period)
         exists = performance_graph_image_exists?(authority_name: authority_name, action: action, time_period: time_period)
-        BCLUpServer.config.monitor_logger.warn("FAILED to write performance graph at #{relative_path}") unless exists
+        BclUpServer.config.monitor_logger.warn("FAILED to write performance graph at #{relative_path}") unless exists
       end
     end
   end

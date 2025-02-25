@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # This module provides access methods into the performance data hash.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   module PerformanceDatatableBehavior # rubocop:disable Metrics/ModuleLength
-    include BCLUpServer::PerformanceHistoryDataKeys
+    include BclUpServer::PerformanceHistoryDataKeys
 
     def datatable_search_stats(authority_data)
       data_table_for(authority_data, SEARCH)
@@ -105,7 +105,7 @@ module BCLUpServer::MonitorStatus
                  else
                    @parent.first_updated_dt
                  end
-      BCLUpServer::TimeService.pretty_date(start_dt)
+      BclUpServer::TimeService.pretty_date(start_dt)
     end
 
     def performance_data_end_dt
@@ -113,13 +113,13 @@ module BCLUpServer::MonitorStatus
     end
 
     def performance_data_end
-      BCLUpServer::TimeService.pretty_date(performance_data_end_dt)
+      BclUpServer::TimeService.pretty_date(performance_data_end_dt)
     end
 
   private
 
     def expected_time_period
-      BCLUpServer.config.performance_datatable_default_time_period
+      BclUpServer.config.performance_datatable_default_time_period
     end
 
     def data_table_for(authority_data, action)
@@ -146,13 +146,13 @@ module BCLUpServer::MonitorStatus
 
     def max_threshold_exceeded(stats, stat_key)
       return false if stats[stat_key].nil?
-      return true if stats[stat_key] > BCLUpServer.config.performance_datatable_max_threshold
+      return true if stats[stat_key] > BclUpServer.config.performance_datatable_max_threshold
       false
     end
 
     def desired_threshold_not_met(stats, stat_key)
       return false if stats[stat_key].nil?
-      return true unless stats[stat_key] < BCLUpServer.config.performance_datatable_warning_threshold
+      return true unless stats[stat_key] < BclUpServer.config.performance_datatable_warning_threshold
       false
     end
   end

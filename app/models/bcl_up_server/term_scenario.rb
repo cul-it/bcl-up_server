@@ -2,7 +2,7 @@
 require 'erb'
 
 # This class parses the term configuration from the yml file into the parts needed by the term scenario validator.
-module BCLUpServer
+module BclUpServer
   class TermScenario < AuthorityScenario
     include ERB::Util
 
@@ -42,7 +42,7 @@ module BCLUpServer
 
     def prefix_for_url(action)
       subauth = "/#{subauthority_name}" if subauthority_name.present?
-      "#{BCLUpServer::Engine.qa_engine_mount}/#{action}/linked_data/#{authority_name.downcase}#{subauth}"
+      "#{BclUpServer::Engine.qa_engine_mount}/#{action}/linked_data/#{authority_name.downcase}#{subauth}"
     end
 
     # Convert identifier into URL safe version with encoding if needed.

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 # Controller for Check Status header menu item
-module BCLUpServer
+module BclUpServer
   class CheckStatusController < ApplicationController
     layout 'bcl_up_server'
 
-    include BCLUpServer::AuthorityValidationBehavior
+    include BclUpServer::AuthorityValidationBehavior
 
     ALL_AUTHORITIES = '__all__'
     VALIDATE_ACCURACY_COMPARISON = :accuracy_comparison
 
     class_attribute :presenter_class
-    self.presenter_class = BCLUpServer::CheckStatusPresenter
+    self.presenter_class = BclUpServer::CheckStatusPresenter
 
     # Sets up presenter with data to display in the UI
     def index
@@ -111,12 +111,12 @@ module BCLUpServer
     end
 
     def log_header
-      BCLUpServer.config.performance_cache_logger.debug("----------------------  check status (max_cache_size = #{max_cache_size}) ----------------------")
-      BCLUpServer.config.performance_cache_logger.debug("(#{self.class}##{__method__}) check status page request (authority_name # #{authority_name})")
+      BclUpServer.config.performance_cache_logger.debug("----------------------  check status (max_cache_size = #{max_cache_size}) ----------------------")
+      BclUpServer.config.performance_cache_logger.debug("(#{self.class}##{__method__}) check status page request (authority_name # #{authority_name})")
     end
 
     def max_cache_size
-      ActiveSupport::NumberHelper.number_to_human_size(BCLUpServer.config.max_performance_cache_size)
+      ActiveSupport::NumberHelper.number_to_human_size(BclUpServer.config.max_performance_cache_size)
     end
   end
 end

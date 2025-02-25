@@ -1,25 +1,25 @@
 # frozen_string_literal: true
 # Job to generate the performance day graph covering the last 24 hours.
-module BCLUpServer
+module BclUpServer
   class PerformancePerByteJob < ApplicationJob
-    include BCLUpServer::PerformanceHistoryDataKeys
+    include BclUpServer::PerformanceHistoryDataKeys
 
     queue_as :default
 
     class_attribute :authority_list_class, :data_service
-    self.authority_list_class = BCLUpServer::AuthorityListerService
-    self.data_service = BCLUpServer::PerformancePerByteDataService
-    # self.graphing_service = BCLUpServer::PerformanceGraphingService
+    self.authority_list_class = BclUpServer::AuthorityListerService
+    self.data_service = BclUpServer::PerformancePerByteDataService
+    # self.graphing_service = BclUpServer::PerformanceGraphingService
 
     def perform(n: 10, action: :search, authority_complexity_ratings: {})
       # checking active_job_id? prevents race conditions for long running jobs
-      generate_data_for_authorities(n, action, authority_complexity_ratings) if BCLUpServer::JobIdCache.active_job_id?(job_key: job_key, job_id: job_id)
+      generate_data_for_authorities(n, action, authority_complexity_ratings) if BclUpServer::JobIdCache.active_job_id?(job_key: job_key, job_id: job_id)
     end
 
   private
 
     def generate_data_for_authorities(n, action, authority_complexity_ratings)
-      BCLUpServer.config.monitor_logger.debug("(#{self.class}-#{job_id}) - GENERATING performance by byte data")
+      BclUpServer.config.monitor_logger.debug("(#{self.class}-#{job_id}) - GENERATING performance by byte data")
       auths = authority_list_class.authorities_list
       data = if action.nil?
                # generate_data_for_authority(ALL_AUTH, n) # generates data for all authorities
@@ -27,8 +27,8 @@ module BCLUpServer
              else
                auths.each_with_object({}) { |authname, hash| hash[authname] = { action => generate_data(authname, action, n) } }
              end
-      BCLUpServer.config.monitor_logger.debug("(#{self.class}-#{job_id}) COMPLETED performance by byte data generation")
-      BCLUpServer::JobIdCache.reset_job_id(job_key: job_key)
+      BclUpServer.config.monitor_logger.debug("(#{self.class}-#{job_id}) COMPLETED performance by byte data generation")
+      BclUpServer::JobIdCache.reset_job_id(job_key: job_key)
       convert_to_csv(data, authority_complexity_ratings)
     end
 
@@ -79,7 +79,7 @@ module BCLUpServer
     end
 
     def job_key
-      "BCLUpServer::PerformanceByByteJob--job_id"
+      "BclUpServer::PerformanceByByteJob--job_id"
     end
   end
 end

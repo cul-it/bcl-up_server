@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This class loads an authority.
-module BCLUpServer
+module BclUpServer
   class AuthorityLoaderService
     class << self
       # Load a QA authority
@@ -14,7 +14,7 @@ module BCLUpServer
         rescue Exception => e
           if status_log.present?
             status_log.add(authority_name: authority_name,
-                           status: BCLUpServer::ScenarioValidator::FAIL,
+                           status: BclUpServer::ScenarioValidator::FAIL,
                            error_message: "Unable to load authority '#{authority_name}'; cause: #{e.message}")
           end
           return nil
@@ -33,7 +33,7 @@ module BCLUpServer
         if authority.blank?
           if status_log.present?
             status_log.add(authority_name: authority_name,
-                           status: BCLUpServer::ScenarioValidator::FAIL,
+                           status: BclUpServer::ScenarioValidator::FAIL,
                            error_message: "Unable to load authority '#{authority_name}'; cause: UNKNOWN")
           end
           return nil

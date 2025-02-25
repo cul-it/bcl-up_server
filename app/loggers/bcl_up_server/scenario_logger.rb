@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Provide a log of scenario data and test results
-module BCLUpServer
+module BclUpServer
   class ScenarioLogger
     include Enumerable
 
@@ -9,9 +9,9 @@ module BCLUpServer
 
     attr_reader :test_count, :failure_count
 
-    PASS = BCLUpServer::ScenarioValidator::PASS
-    FAIL = BCLUpServer::ScenarioValidator::FAIL
-    UNKNOWN = BCLUpServer::ScenarioValidator::UNKNOWN
+    PASS = BclUpServer::ScenarioValidator::PASS
+    FAIL = BclUpServer::ScenarioValidator::FAIL
+    UNKNOWN = BclUpServer::ScenarioValidator::UNKNOWN
 
     def initialize(test_count = 0, failure_count = 0)
       @log = []

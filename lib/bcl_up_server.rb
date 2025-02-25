@@ -4,11 +4,11 @@ require 'bcl_up_server/version'
 require 'user_agent'
 require 'deprecation'
 
-module BCLUpServer
+module BclUpServer
   extend ActiveSupport::Autoload
   extend Deprecation
 
-  self.deprecation_horizon = 'cul-it/BCLUpServer v6.0.0'
+  self.deprecation_horizon = 'cul-it/BclUpServer v6.0.0'
 
   autoload :Configuration
 
@@ -21,7 +21,7 @@ module BCLUpServer
   # @see Qa::Configuration for configuration options
   def self.config(&block)
     puts "############# CONFIG ###############"
-    @config ||= BCLUpServer::Configuration.new
+    @config ||= BclUpServer::Configuration.new
     puts "############# @config  ###############"
     puts @config
 

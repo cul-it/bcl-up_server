@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe BCLUpServer::TimeService do
+RSpec.describe BclUpServer::TimeService do
   let(:timezone_name) { 'Eastern Time (US & Canada)' }
   before do
     allow(described_class).to receive_message_chain(:config, :preferred_time_zone_name).and_return(timezone_name) # rubocop:disable RSpec/MessageChain

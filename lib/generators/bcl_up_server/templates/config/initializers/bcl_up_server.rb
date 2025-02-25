@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-BCLUpServer.config do |config|
+BclUpServer.config do |config|
   # Preferred time zone for reporting historical data and performance data
   # @param [String] time zone name
   # @see https://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html for possible values of TimeZone names
@@ -87,7 +87,7 @@ BCLUpServer.config do |config|
   # config.suppress_performance_gathering = false
 
   # Performance data is gathered on every incoming query.  Basic stats are logged from QA.  Full stats are logged
-  # by BCLUpServer and can eat up logging realestate.  To suppress the logging of details, set this config to true.
+  # by BclUpServer and can eat up logging realestate.  To suppress the logging of details, set this config to true.
   # @param [Boolean] do not log performance data details when true (defaults to false for backward compatibitily)
   # config.suppress_logging_performance_datails = false
 

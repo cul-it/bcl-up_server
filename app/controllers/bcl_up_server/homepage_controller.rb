@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module BCLUpServer
+module BclUpServer
   class HomepageController < ApplicationController
     layout 'bcl_up_server'
 

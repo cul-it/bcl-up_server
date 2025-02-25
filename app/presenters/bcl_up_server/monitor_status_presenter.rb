@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This presenter class provides all data needed by the view that monitors status of authorities.
-module BCLUpServer
+module BclUpServer
   class MonitorStatusPresenter
     extend Forwardable
 
@@ -10,10 +10,10 @@ module BCLUpServer
     # @param historical_up_down_data [Hash<Array>] status of queries for the last 30 days
     # @param performance_data [Hash<Hash>] performance datatable data
     def initialize(current_summary:, current_failure_data:, historical_summary_data:, historical_up_down_data:, performance_data:)
-      @current_status_presenter = BCLUpServer::MonitorStatus::CurrentStatusPresenter.new(parent: self, current_summary: current_summary, current_failure_data: current_failure_data)
-      @history_presenter = BCLUpServer::MonitorStatus::HistoryPresenter.new(parent: self, historical_summary_data: historical_summary_data)
-      @history_up_down_presenter = BCLUpServer::MonitorStatus::HistoryUpDownPresenter.new(parent: self, historical_up_down_data: historical_up_down_data)
-      @performance_presenter = BCLUpServer::MonitorStatus::PerformancePresenter.new(parent: self, performance_data: performance_data)
+      @current_status_presenter = BclUpServer::MonitorStatus::CurrentStatusPresenter.new(parent: self, current_summary: current_summary, current_failure_data: current_failure_data)
+      @history_presenter = BclUpServer::MonitorStatus::HistoryPresenter.new(parent: self, historical_summary_data: historical_summary_data)
+      @history_up_down_presenter = BclUpServer::MonitorStatus::HistoryUpDownPresenter.new(parent: self, historical_up_down_data: historical_up_down_data)
+      @performance_presenter = BclUpServer::MonitorStatus::PerformancePresenter.new(parent: self, performance_data: performance_data)
     end
 
     def_delegators :@current_status_presenter, :last_updated_dt, :last_updated, :first_updated_dt, :first_updated, :authorities_count,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # ABSTRACT class providing common methods for running a scenario of any type.
-module BCLUpServer
+module BclUpServer
   class ScenarioValidator
     PASS = :good
     FAIL = :bad
@@ -38,7 +38,7 @@ module BCLUpServer
 
     # Log the structure of the scenario and status of a test run.
     # @param [Hash] status_info holding information to be logged
-    # @see BCLUpServer::ScenarioLogger
+    # @see BclUpServer::ScenarioLogger
     def log(status_info = {})
       status_info[:authority_name] = authority_name
       status_info[:validation_type] = scenario_validation_type
@@ -65,15 +65,15 @@ module BCLUpServer
     # Runs the test in the block passed by the specific scenario type.
     # @return [Symbol] :good (PASS) or :unknown (UNKNOWN) based on whether enough results were returned
     def test_connection(min_expected_size: MIN_EXPECTED_SIZE, scenario_type_name:)
-      dt_start = BCLUpServer::TimeService.current_time
+      dt_start = BclUpServer::TimeService.current_time
       results = yield if block_given?
-      dt_end = BCLUpServer::TimeService.current_time
+      dt_end = BclUpServer::TimeService.current_time
       actual_size = results.to_s.length
       status = actual_size > min_expected_size ? PASS : UNKNOWN
       errmsg = status == PASS ? '' : "#{scenario_type_name.capitalize} scenario unknown status; cause: Results actual size (#{actual_size} < expected size (#{min_expected_size})"
       log(status: status, error_message: errmsg, normalization_run_time: (dt_end - dt_start)) # TODO: need to get run times from results
     rescue Exception => e
-      dt_end = BCLUpServer::TimeService.current_time
+      dt_end = BclUpServer::TimeService.current_time
       log(status: FAIL, error_message: "Exception executing #{scenario_type_name} scenario; cause: #{e.message}", request_run_time: (dt_end - dt_start))
     end
 
@@ -124,12 +124,12 @@ module BCLUpServer
     end
 
     def accuracy_scenario?
-      # ABSTRACT define in specific scenario type validator (i.e. BCLUpServer::TermScenarioValidator, BCLUpServer::SearchScenarioValidator)
+      # ABSTRACT define in specific scenario type validator (i.e. BclUpServer::TermScenarioValidator, BclUpServer::SearchScenarioValidator)
       false
     end
 
     def connection_scenario?
-      # ABSTRACT define in specific scenario type validator (i.e. BCLUpServer::TermScenarioValidator, BCLUpServer::SearchScenarioValidator)
+      # ABSTRACT define in specific scenario type validator (i.e. BclUpServer::TermScenarioValidator, BclUpServer::SearchScenarioValidator)
       false
     end
   end

@@ -63,6 +63,6 @@ def load_fixture_file(fname)
   end
 end
 
-BCLUpServer.config.suppress_performance_gathering = true
-BCLUpServer.config.suppress_logging_performance_details = true
-BCLUpServer.config.preferred_time_zone_name = 'Eastern Time (US & Canada)'
+BclUpServer.config.suppress_performance_gathering = true
+BclUpServer.config.suppress_logging_performance_details = true
+BclUpServer.config.preferred_time_zone_name = 'Eastern Time (US & Canada)'

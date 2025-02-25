@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 # Maintain a cache of data for Authority Connection History table displayed on Monitor Status page
-module BCLUpServer
+module BclUpServer
   class ScenarioHistoryCache
     class_attribute :scenario_history_class, :scenario_up_down_class
-    self.scenario_history_class = BCLUpServer::ScenarioRunHistory
-    self.scenario_up_down_class = BCLUpServer::HistoryUpDownService
+    self.scenario_history_class = BclUpServer::ScenarioRunHistory
+    self.scenario_up_down_class = BclUpServer::HistoryUpDownService
 
     class << self
-      include BCLUpServer::CacheKeys
+      include BclUpServer::CacheKeys
 
       # Get a summary of the number of days passing/failing for scenario runs during configured time period
       # @param force [Boolean] if true, run the tests even if the cache hasn't expired; otherwise, use cache if not expired
@@ -17,7 +17,7 @@ module BCLUpServer
       #     'geonames_ld4l_cache' => { good: 32, bad: 1 } }
       def historical_summary(force: false)
         Rails.cache.fetch(cache_key_for_historical_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
-          BCLUpServer.config.monitor_logger.debug("(BCLUpServer::ScenarioHistoryCache) - CALCULATING HISTORY of scenario runs (force: #{force})")
+          BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioHistoryCache) - CALCULATING HISTORY of scenario runs (force: #{force})")
           scenario_history_class.historical_summary
         end
       end
@@ -30,7 +30,7 @@ module BCLUpServer
       #     'geonames_ld4l_cache' => [ :fully_up, :mostly_up, :down, :fully_up, :timeouts, ...] }
       def historical_up_down_data(force: false)
         Rails.cache.fetch(cache_key_for_historical_up_down_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
-          BCLUpServer.config.monitor_logger.debug("(BCLUpServer::ScenarioHistoryCache) - CALCULATING UP-DOWN STATUS HISTORY of scenario runs (force: #{force})")
+          BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioHistoryCache) - CALCULATING UP-DOWN STATUS HISTORY of scenario runs (force: #{force})")
           scenario_up_down_class.new.last_30_days
         end
       end
@@ -46,7 +46,7 @@ module BCLUpServer
       end
 
       def next_expiry
-        BCLUpServer::CacheExpiryService.cache_expiry
+        BclUpServer::CacheExpiryService.cache_expiry
       end
     end
   end

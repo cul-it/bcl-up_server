@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 require 'rails/generators/active_record'
 
-module BCLUpServer
-  # BCLUpServer::DatabaseMigrator is responsible for copying BCLUpServer's required database
+module BclUpServer
+  # BclUpServer::DatabaseMigrator is responsible for copying BclUpServer's required database
   # migrations into applications. Rails engines typically use the built-in
-  # `{ENGINE_NAME}:install:migrations` task to handle this; instead BCLUpServer
+  # `{ENGINE_NAME}:install:migrations` task to handle this; instead BclUpServer
   # follows the practice used by Devise to dynamically subclass migrations with
   # the version of `ActiveRecord::Migration` corresponding to the version of
   # Rails used by the application.
   #
-  # @note BCLUpServer::DatabaseMigrator uses Rails' generator internals to avoid
+  # @note BclUpServer::DatabaseMigrator uses Rails' generator internals to avoid
   #       having to re-implement code that knows how to copy migrations only if
   #       needed
   class DatabaseMigrator < Rails::Generators::Base
@@ -22,7 +22,7 @@ module BCLUpServer
     end
 
     def self.migrations_dir
-      BCLUpServer::Engine.root.join('lib', 'generators', 'bcl_up_server', 'templates')
+      BclUpServer::Engine.root.join('lib', 'generators', 'bcl_up_server', 'templates')
     end
 
     def self.copy

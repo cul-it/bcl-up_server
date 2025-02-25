@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class BCLUpServer::ModelsGenerator < Rails::Generators::Base
+class BclUpServer::ModelsGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   desc """

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # This presenter class provides all data needed by the view that show the list of authorities.
-module BCLUpServer
+module BclUpServer
   class NavmenuPresenter
-    include BCLUpServer::Engine.routes.url_helpers
+    include BclUpServer::Engine.routes.url_helpers
 
     # @return [Array<Hash>] label-url pairs for the navigation bar's menu items justified left
     # @example

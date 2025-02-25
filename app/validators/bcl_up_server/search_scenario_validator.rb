@@ -2,7 +2,7 @@
 require 'json'
 
 # This class runs a single search scenario and logs the results.
-module BCLUpServer
+module BclUpServer
   class SearchScenarioValidator < ScenarioValidator
     SEARCH_ACTION = 'search'
 
@@ -46,9 +46,9 @@ module BCLUpServer
 
     # Runs the accuracy test and log results
     def test_accuracy(subject_uri:, expected_by_position:, pending: false)
-      dt_start = BCLUpServer::TimeService.current_time
+      dt_start = BclUpServer::TimeService.current_time
       results = yield if block_given?
-      dt_end = BCLUpServer::TimeService.current_time
+      dt_end = BclUpServer::TimeService.current_time
       if results.blank?
         log(status: UNKNOWN, errmsg: "Search position scenario failed; cause: no results found", expected: expected_by_position,
             target: subject_uri, request_run_time: (dt_end - dt_start), pending: pending)
@@ -57,7 +57,7 @@ module BCLUpServer
 
       check_position(results, subject_uri, expected_by_position, total_run_time: (dt_end - dt_start), pending: pending) # TODO: need to get run times from results
     rescue Exception => e
-      dt_end = BCLUpServer::TimeService.current_time
+      dt_end = BclUpServer::TimeService.current_time
       log(status: FAIL, errmsg: "Exception executing search position scenario; cause: #{e.message}",
           expected: expected_by_position, target: subject_uri, request_run_time: (dt_end - dt_start), pending: pending)
     end

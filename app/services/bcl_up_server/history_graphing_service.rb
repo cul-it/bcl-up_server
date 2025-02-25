@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 # This class sets creates the performance graphs for each authority during day, month, and year time periods for fetch and search actions.
-module BCLUpServer
+module BclUpServer
   class HistoryGraphingService
     class << self
-      include BCLUpServer::GruffGraph
+      include BclUpServer::GruffGraph
 
       HISTORICAL_GRAPH_FILENAME = 'historical_side_stacked_bar.png'
 
       class_attribute :authority_list_class
-      self.authority_list_class = BCLUpServer::AuthorityListerService
+      self.authority_list_class = BclUpServer::AuthorityListerService
 
       # Path to use with <image> tags
       def history_graph_image_path
@@ -22,11 +22,11 @@ module BCLUpServer
 
       # Generate the graph of historical data
       # @param data [Hash] data to use to generate the graph
-      # @see BCLUpServer::ScenarioHistoricalCache.historical_summary for source of data
+      # @see BclUpServer::ScenarioHistoricalCache.historical_summary for source of data
       def generate_graph(data)
         gruff_data = rework_historical_data_for_gruff(data)
         create_gruff_graph(gruff_data, historical_graph_full_path)
-        BCLUpServer.config.monitor_logger.warn("FAILED to write historical graph at #{history_graph_image_path}") unless history_graph_image_exists?
+        BclUpServer.config.monitor_logger.warn("FAILED to write historical graph at #{history_graph_image_path}") unless history_graph_image_exists?
       end
 
     private

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 # This class calculates performance stats based on size of data.
-module BCLUpServer
+module BclUpServer
   class PerformancePerByteDataService
     class << self
-      include BCLUpServer::PerformanceHistoryDataKeys
+      include BclUpServer::PerformanceHistoryDataKeys
 
       class_attribute :stats_calculator_class, :performance_data_class
-      self.stats_calculator_class = BCLUpServer::PerformancePerByteCalculatorService
-      self.performance_data_class = BCLUpServer::PerformanceHistory
+      self.stats_calculator_class = BclUpServer::PerformancePerByteCalculatorService
+      self.performance_data_class = BclUpServer::PerformanceHistory
 
       # Performance data based on size of data.
       # @param authority_name [String] name of an authority

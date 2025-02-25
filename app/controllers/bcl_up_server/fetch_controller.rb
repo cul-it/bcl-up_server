@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 # Controller for Check Status header menu item
-module BCLUpServer
+module BclUpServer
   class FetchController < ApplicationController
     layout 'bcl_up_server'
 
     class_attribute :presenter_class,
                     :lister_class
 
-    self.presenter_class = BCLUpServer::FetchPresenter
-    self.lister_class = BCLUpServer::AuthorityListerService
+    self.presenter_class = BclUpServer::FetchPresenter
+    self.lister_class = BclUpServer::AuthorityListerService
 
     # Sets up presenter with data to display in the UI
     def index
@@ -29,7 +29,7 @@ module BCLUpServer
     # @return [Qa::Authorities::LinkedData::GenericAuthority] the instance of the QA authority
     def authority
       return unless authority_name?
-      @authority ||= BCLUpServer::AuthorityLoaderService.load(authority_name: authority_name)
+      @authority ||= BclUpServer::AuthorityLoaderService.load(authority_name: authority_name)
     end
 
     def uri?

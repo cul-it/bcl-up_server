@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This presenter class provides all data needed by the view that checks the status of authorities.
-module BCLUpServer
+module BclUpServer
   class CheckStatusPresenter
     # @param authorities_list [Array<String>] a list of all loaded authorities' names
     # @param status_data [Array<Hash>] a list of status data for each scenario tested
@@ -89,11 +89,11 @@ module BCLUpServer
     def status_label(status)
       case status
       when :good
-        BCLUpServer::ScenarioRunHistory::GOOD_MARKER
+        BclUpServer::ScenarioRunHistory::GOOD_MARKER
       when :bad
-        BCLUpServer::ScenarioRunHistory::BAD_MARKER
+        BclUpServer::ScenarioRunHistory::BAD_MARKER
       when :unknown
-        BCLUpServer::ScenarioRunHistory::UNKNOWN_MARKER
+        BclUpServer::ScenarioRunHistory::UNKNOWN_MARKER
       end
     end
 
@@ -109,15 +109,15 @@ module BCLUpServer
     end
 
     def value_all_collections
-      BCLUpServer::CheckStatusController::ALL_AUTHORITIES
+      BclUpServer::CheckStatusController::ALL_AUTHORITIES
     end
 
     def value_check_param
-      BCLUpServer::AuthorityValidationBehavior::VALIDATION_TYPE_PARAM
+      BclUpServer::AuthorityValidationBehavior::VALIDATION_TYPE_PARAM
     end
 
     def value_check_connections
-      BCLUpServer::AuthorityValidationBehavior::VALIDATE_CONNECTIONS
+      BclUpServer::AuthorityValidationBehavior::VALIDATE_CONNECTIONS
     end
 
     def label_check_connections
@@ -129,7 +129,7 @@ module BCLUpServer
     end
 
     def value_check_accuracy
-      BCLUpServer::AuthorityValidationBehavior::VALIDATE_ACCURACY
+      BclUpServer::AuthorityValidationBehavior::VALIDATE_ACCURACY
     end
 
     def label_check_accuracy
@@ -141,7 +141,7 @@ module BCLUpServer
     end
 
     def value_check_comparison
-      BCLUpServer::AuthorityValidationBehavior::VALIDATE_ACCURACY_COMPARISON
+      BclUpServer::AuthorityValidationBehavior::VALIDATE_ACCURACY_COMPARISON
     end
 
     def label_check_comparison
@@ -153,7 +153,7 @@ module BCLUpServer
     end
 
     def value_all_checks
-      BCLUpServer::AuthorityValidationBehavior::ALL_VALIDATIONS
+      BclUpServer::AuthorityValidationBehavior::ALL_VALIDATIONS
     end
 
     def label_all_checks

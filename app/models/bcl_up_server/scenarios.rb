@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Holds all scenarios for an authority.
-module BCLUpServer
+module BclUpServer
   class Scenarios
     AUTHORITY_SCENARIO = 'authority'
     TERM_SCENARIOS = 'term'
@@ -37,7 +37,7 @@ module BCLUpServer
     def parse_term_scenarios
       @term_scenarios = []
       term_scenarios_config.each do |term_scenario_config|
-        @term_scenarios << BCLUpServer::TermScenario.new(authority: authority,
+        @term_scenarios << BclUpServer::TermScenario.new(authority: authority,
                                                       authority_name: authority_name,
                                                       authority_scenario_config: authority_scenario_config,
                                                       scenario_config: term_scenario_config)
@@ -47,7 +47,7 @@ module BCLUpServer
     def parse_search_scenarios
       @search_scenarios = []
       search_scenarios_config.each do |search_scenario_config|
-        @search_scenarios << BCLUpServer::SearchScenario.new(authority: authority,
+        @search_scenarios << BclUpServer::SearchScenario.new(authority: authority,
                                                           authority_name: authority_name,
                                                           authority_scenario_config: authority_scenario_config,
                                                           scenario_config: search_scenario_config)

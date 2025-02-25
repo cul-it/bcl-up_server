@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module BCLUpServer
+module BclUpServer
   module AuthorityValidationBehavior
     extend ActiveSupport::Concern
 
@@ -14,9 +14,9 @@ module BCLUpServer
                       :lister_class,
                       :logger_class
 
-      self.validator_class = BCLUpServer::AuthorityValidatorService
-      self.lister_class = BCLUpServer::AuthorityListerService
-      self.logger_class = BCLUpServer::ScenarioLogger
+      self.validator_class = BclUpServer::AuthorityValidatorService
+      self.lister_class = BclUpServer::AuthorityListerService
+      self.logger_class = BclUpServer::ScenarioLogger
     end
 
   private

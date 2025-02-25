@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # Maintain a cache of data for the Performance Datatable
-module BCLUpServer
+module BclUpServer
   class PerformanceDatatableCache
-    include BCLUpServer::CacheKeys
+    include BclUpServer::CacheKeys
 
     class_attribute :performance_data_service
-    self.performance_data_service = BCLUpServer::PerformanceDatatableService
+    self.performance_data_service = BclUpServer::PerformanceDatatableService
 
     # Retrieve performance datatable data from the cache
     # @param force [Boolean] if true, calculate the stats even if the cache hasn't expired; otherwise, use cache if not expired
@@ -23,9 +23,9 @@ module BCLUpServer
     #   }
     def self.data(force: false)
       Rails.cache.fetch(PERFORMANCE_DATATABLE_DATA_CACHE_KEY,
-                        expires_in: BCLUpServer::CacheExpiryService.cache_expiry,
+                        expires_in: BclUpServer::CacheExpiryService.cache_expiry,
                         race_condition_ttl: 5.minutes, force: force) do
-        BCLUpServer.config.monitor_logger.debug("(BCLUpServer::PerformanceDatatableCache) - CALCULATING performance datatable stats (force: #{force})")
+        BclUpServer.config.monitor_logger.debug("(BclUpServer::PerformanceDatatableCache) - CALCULATING performance datatable stats (force: #{force})")
         performance_data_service.calculate_datatable_data
       end
     end

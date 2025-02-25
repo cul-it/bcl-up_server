@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 # This presenter class provides historical testing data needed by the view that monitors status of authorities.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   class HistoryUpDownPresenter
     attr_reader :historical_up_down_data
 
-    # @param parent [BCLUpServer::MonitorStatusPresenter] parent presenter
+    # @param parent [BclUpServer::MonitorStatusPresenter] parent presenter
     # @param historical_up_down_data [Hash<Array>] recent connection status of queries (typically last 30 days)
     # @example historical_up_down_data
     #   { 'AGROVOC' = [
@@ -25,11 +25,11 @@ module BCLUpServer::MonitorStatus
     # Return the last date of data represented in the history graph and data table
     # @return [ActiveSupport::TimeWithZone] date time stamp
     def up_down_start
-      BCLUpServer::TimeService.pretty_date(up_down_end_dt - 29.days)
+      BclUpServer::TimeService.pretty_date(up_down_end_dt - 29.days)
     end
 
     def up_down_end
-      BCLUpServer::TimeService.pretty_date(up_down_end_dt)
+      BclUpServer::TimeService.pretty_date(up_down_end_dt)
     end
 
     def up_down_end_dt
@@ -52,7 +52,7 @@ module BCLUpServer::MonitorStatus
 
     # @return [Boolean] true if historical datatable should be visible; otherwise false
     def display_historical_up_down?
-      BCLUpServer.config.display_historical_datatable? && @historical_up_down_data.present?
+      BclUpServer.config.display_historical_datatable? && @historical_up_down_data.present?
     end
   end
 end

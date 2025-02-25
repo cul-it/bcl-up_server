@@ -3,7 +3,7 @@
 
 require 'json'
 
-module BCLUpServer
+module BclUpServer
   class FetchPresenter
     # @param authorities_list [Array<String>] a list of all loaded authorities' names
     # @param authority [String] name of the authority from which the term was fetched (e.g. 'LOCSUBJECT_LD4L_CACHE')

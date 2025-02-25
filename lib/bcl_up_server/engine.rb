@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-module BCLUpServer
+module BclUpServer
   class Engine < ::Rails::Engine
-    isolate_namespace BCLUpServer
+    isolate_namespace BclUpServer
 
     require 'qa'
 
     def self.engine_mount
-      BCLUpServer::Engine.routes.find_script_name({})
+      BclUpServer::Engine.routes.find_script_name({})
     end
 
     def self.qa_engine_mount

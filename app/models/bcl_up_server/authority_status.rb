@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Provide access to the authority_status database table which tracks a summary of status data over time.
-module BCLUpServer
+module BclUpServer
   class AuthorityStatus < ApplicationRecord
     self.table_name = 'authority_status'
     has_many :authority_status_failure, dependent: :destroy

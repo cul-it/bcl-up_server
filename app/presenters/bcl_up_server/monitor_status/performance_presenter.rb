@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 # This presenter class provides performance data needed by the view that monitors status of authorities.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   class PerformancePresenter
-    include BCLUpServer::MonitorStatus::PerformanceDatatableBehavior
-    include BCLUpServer::MonitorStatus::PerformanceGraphBehavior
-    include BCLUpServer::PerformanceHistoryDataKeys
+    include BclUpServer::MonitorStatus::PerformanceDatatableBehavior
+    include BclUpServer::MonitorStatus::PerformanceGraphBehavior
+    include BclUpServer::PerformanceHistoryDataKeys
 
-    # @param parent [BCLUpServer::MonitorStatusPresenter] parent presenter
+    # @param parent [BclUpServer::MonitorStatusPresenter] parent presenter
     # @param performance_data [Hash<Hash>] performance data
     def initialize(parent:, performance_data:)
       @parent = parent
@@ -24,11 +24,11 @@ module BCLUpServer::MonitorStatus
     end
 
     def display_performance_graph?
-      BCLUpServer.config.display_performance_graph? && !performance_graphs.nil? && !performance_graphs.empty?
+      BclUpServer.config.display_performance_graph? && !performance_graphs.nil? && !performance_graphs.empty?
     end
 
     def display_performance_datatable?
-      BCLUpServer.config.display_performance_datatable? && !performance_data.nil?
+      BclUpServer.config.display_performance_datatable? && !performance_data.nil?
     end
 
     def performance_data_authority_name(entry)

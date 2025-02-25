@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Create where clauses for time periods and authorities.
-module BCLUpServer
+module BclUpServer
   class TimePeriodService
     class << self
       # Construct a hash to pass to ActiveRecord where method limiting to last 24 hours and optionally an authority.
@@ -66,7 +66,7 @@ module BCLUpServer
     private
 
       def where_for_dt_stamp(dt_table, dt_column, time_period)
-        end_range = BCLUpServer::TimeService.current_time
+        end_range = BclUpServer::TimeService.current_time
         start_range = end_range - time_period
         where_clause = { dt_column => start_range..end_range }
         where_clause = { dt_table => where_clause } unless dt_table.nil?

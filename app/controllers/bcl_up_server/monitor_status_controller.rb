@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 # Controller for Monitor Status header menu item
-module BCLUpServer
+module BclUpServer
   class MonitorStatusController < ApplicationController # rubocop:disable Metrics/ClassLength
     layout 'bcl_up_server'
 
-    include BCLUpServer::AuthorityValidationBehavior
+    include BclUpServer::AuthorityValidationBehavior
 
     class_attribute :presenter_class,
                     :scenario_run_registry_class
-    self.presenter_class = BCLUpServer::MonitorStatusPresenter
-    self.scenario_run_registry_class = BCLUpServer::ScenarioRunRegistry
+    self.presenter_class = BclUpServer::MonitorStatusPresenter
+    self.scenario_run_registry_class = BclUpServer::ScenarioRunRegistry
 
     # Sets up presenter with data to display in the UI
     def index
@@ -21,7 +21,7 @@ module BCLUpServer
                                        historical_summary_data: historical_data,
                                        historical_up_down_data: historical_up_down_data,
                                        performance_data: performance_table_data)
-      BCLUpServer.config.monitor_logger.debug("~~~~~~~~ DONE rendering monitor status")
+      BclUpServer.config.monitor_logger.debug("~~~~~~~~ DONE rendering monitor status")
       render 'index', status: :internal_server_error if latest_summary&.failing_authority_count&.positive?
     end
 
@@ -34,54 +34,54 @@ module BCLUpServer
     end
 
     def update_tests
-      BCLUpServer::ScenarioRunCache.run_tests(force: refresh_tests?)
+      BclUpServer::ScenarioRunCache.run_tests(force: refresh_tests?)
     end
 
-    # Sets @latest_test_run [BCLUpServer::ScenarioRunRegistry]
+    # Sets @latest_test_run [BclUpServer::ScenarioRunRegistry]
     def latest_test_run
       @latest_test_run ||= scenario_run_registry_class.latest_run
     end
 
-    # @returns [BCLUpServer::ScenarioRunSummary] summary statistics on the latest run
+    # @returns [BclUpServer::ScenarioRunSummary] summary statistics on the latest run
     def latest_summary
-      latest_test_run ? BCLUpServer::ScenarioRunSummaryCache.summary_for_run(run: latest_test_run) : nil
+      latest_test_run ? BclUpServer::ScenarioRunSummaryCache.summary_for_run(run: latest_test_run) : nil
     end
 
     # @returns [Array<Hash>] scenario details for any failing scenarios in the latest run
-    # @see BCLUpServer::ScenarioRunHistory#run_failures for structure of output
+    # @see BclUpServer::ScenarioRunHistory#run_failures for structure of output
     def latest_failures
-      latest_test_run ? BCLUpServer::ScenarioRunFailuresCache.failures_for_run(run: latest_test_run) : nil
+      latest_test_run ? BclUpServer::ScenarioRunFailuresCache.failures_for_run(run: latest_test_run) : nil
     end
 
     # Get a summary level of historical data
     # @returns [Array<Hash>] summary of passing/failing tests for each authority
-    # @see BCLUpServer::ScenarioRunHistory#historical_summary for structure of output
+    # @see BclUpServer::ScenarioRunHistory#historical_summary for structure of output
     def historical_data
-      @historical_data ||= BCLUpServer::ScenarioHistoryCache.historical_summary(force: refresh_history?)
+      @historical_data ||= BclUpServer::ScenarioHistoryCache.historical_summary(force: refresh_history?)
     end
 
     # Get a summary level of historical data
     # @returns [Array<Hash>] summary of passing/failing tests for each authority
-    # @see BCLUpServer::ScenarioRunHistory#historical_summary for structure of output
+    # @see BclUpServer::ScenarioRunHistory#historical_summary for structure of output
     def historical_up_down_data
-      @historical_up_down_data ||= BCLUpServer::ScenarioHistoryCache.historical_up_down_data(force: refresh_history?)
+      @historical_up_down_data ||= BclUpServer::ScenarioHistoryCache.historical_up_down_data(force: refresh_history?)
     end
 
     def update_historical_graph
-      return unless BCLUpServer.config.display_historical_graph?
-      BCLUpServer::ScenarioHistoryGraphCache.generate_graph(data: historical_data, force: refresh_history?)
+      return unless BclUpServer.config.display_historical_graph?
+      BclUpServer::ScenarioHistoryGraphCache.generate_graph(data: historical_data, force: refresh_history?)
     end
 
     def performance_table_data
-      return {} unless BCLUpServer.config.display_performance_datatable?
-      BCLUpServer::PerformanceDatatableCache.data(force: refresh_performance_table?)
+      return {} unless BclUpServer.config.display_performance_datatable?
+      BclUpServer::PerformanceDatatableCache.data(force: refresh_performance_table?)
     end
 
     def update_performance_graphs
-      return unless BCLUpServer.config.display_performance_graph?
-      BCLUpServer::PerformanceDayGraphCache.generate_graphs(force: refresh_performance_graphs?)
-      BCLUpServer::PerformanceMonthGraphCache.generate_graphs(force: refresh_performance_graphs?)
-      BCLUpServer::PerformanceYearGraphCache.generate_graphs(force: refresh_performance_graphs?)
+      return unless BclUpServer.config.display_performance_graph?
+      BclUpServer::PerformanceDayGraphCache.generate_graphs(force: refresh_performance_graphs?)
+      BclUpServer::PerformanceMonthGraphCache.generate_graphs(force: refresh_performance_graphs?)
+      BclUpServer::PerformanceYearGraphCache.generate_graphs(force: refresh_performance_graphs?)
     end
 
     def refresh?
@@ -140,7 +140,7 @@ module BCLUpServer
     end
 
     def commit_cache
-      BCLUpServer.config.performance_cache.write_all
+      BclUpServer.config.performance_cache.write_all
     end
 
     def validate_auth_reload_token(action)
@@ -154,9 +154,9 @@ module BCLUpServer
     end
 
     def log_header
-      BCLUpServer.config.monitor_logger.debug("------------------------------------  monitor status  -----------------------------------")
-      BCLUpServer.config.monitor_logger.debug("refresh_all? #{refresh_all?}, refresh_tests? #{refresh_tests?}, refresh_history? #{refresh_history?}")
-      BCLUpServer.config.monitor_logger.debug("refresh_performance? #{refresh_performance?}, refresh_performance_table? #{refresh_performance_table?}, " \
+      BclUpServer.config.monitor_logger.debug("------------------------------------  monitor status  -----------------------------------")
+      BclUpServer.config.monitor_logger.debug("refresh_all? #{refresh_all?}, refresh_tests? #{refresh_tests?}, refresh_history? #{refresh_history?}")
+      BclUpServer.config.monitor_logger.debug("refresh_performance? #{refresh_performance?}, refresh_performance_table? #{refresh_performance_table?}, " \
                                            "refresh_performance_graphs? #{refresh_performance_graphs?})")
     end
   end

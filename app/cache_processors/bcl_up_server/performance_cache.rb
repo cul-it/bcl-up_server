@@ -2,14 +2,14 @@
 # Model to hold performance data in memory and ultimately write it out to the database
 require 'objspace'
 
-module BCLUpServer
+module BclUpServer
   class PerformanceCache
     def initialize
       @cache = {}
     end
 
     def new_entry(authority:, action:)
-      entry = { dt_stamp: BCLUpServer::TimeService.current_time,
+      entry = { dt_stamp: BclUpServer::TimeService.current_time,
                 authority: authority,
                 action: action }
       id = SecureRandom.uuid
@@ -25,8 +25,8 @@ module BCLUpServer
 
     def complete_entry(id:)
       log(id: id)
-      BCLUpServer.config.performance_cache_logger.debug("#{self.class}##{__method__} - id: #{id}   cache memory: #{ObjectSpace.memsize_of @cache}")
-      write_all if ObjectSpace.memsize_of(@cache) > BCLUpServer.config.max_performance_cache_size
+      BclUpServer.config.performance_cache_logger.debug("#{self.class}##{__method__} - id: #{id}   cache memory: #{ObjectSpace.memsize_of @cache}")
+      write_all if ObjectSpace.memsize_of(@cache) > BclUpServer.config.max_performance_cache_size
     end
 
     def destroy(id)
@@ -38,7 +38,7 @@ module BCLUpServer
       size_before = cache_to_write.size
       cache_to_write.each do |id, entry|
         next if incomplete? entry
-        BCLUpServer::PerformanceHistory.create(dt_stamp: entry[:dt_stamp], authority: entry[:authority],
+        BclUpServer::PerformanceHistory.create(dt_stamp: entry[:dt_stamp], authority: entry[:authority],
                                             action: entry[:action], action_time_ms: entry[:action_time_ms],
                                             size_bytes: entry[:size_bytes], retrieve_time_ms: entry[:retrieve_time_ms],
                                             graph_load_time_ms: entry[:graph_load_time_ms],
@@ -54,12 +54,12 @@ module BCLUpServer
     def swap_cache_hash
       cache_to_write = @cache
       @cache = {} # reset main cache so new items after write begins are cached in the main cache
-      BCLUpServer.config.performance_cache_logger.debug("#{self.class}##{__method__} - cache memory BEFORE write: #{ObjectSpace.memsize_of(cache_to_write)}")
+      BclUpServer.config.performance_cache_logger.debug("#{self.class}##{__method__} - cache memory BEFORE write: #{ObjectSpace.memsize_of(cache_to_write)}")
       cache_to_write
     end
 
     def log(id:)
-      return if BCLUpServer.config.suppress_logging_performance_datails?
+      return if BclUpServer.config.suppress_logging_performance_datails?
       Rails.logger.debug("*** performance data for id: #{id} ***")
       Rails.logger.debug(@cache[id].to_yaml)
     end
@@ -82,12 +82,12 @@ module BCLUpServer
 
     def log_write_all(prefix, size_before, cache_size)
       if size_before.positive?
-        BCLUpServer.config.performance_cache_logger.debug("#{prefix} 0 of #{size_before} performance data records were saved") if size_before == cache_size
-        BCLUpServer.config.performance_cache_logger.debug("#{prefix} #{size_before - cache_size} of #{size_before} performance data records were saved") if size_before > cache_size
+        BclUpServer.config.performance_cache_logger.debug("#{prefix} 0 of #{size_before} performance data records were saved") if size_before == cache_size
+        BclUpServer.config.performance_cache_logger.debug("#{prefix} #{size_before - cache_size} of #{size_before} performance data records were saved") if size_before > cache_size
       else
-        BCLUpServer.config.performance_cache_logger.debug("#{prefix} 0 of 0 performance data records were saved")
+        BclUpServer.config.performance_cache_logger.debug("#{prefix} 0 of 0 performance data records were saved")
       end
-      BCLUpServer.config.performance_cache_logger.debug("#{prefix} - cache memory AFTER write: #{ObjectSpace.memsize_of @cache}")
+      BclUpServer.config.performance_cache_logger.debug("#{prefix} - cache memory AFTER write: #{ObjectSpace.memsize_of @cache}")
     end
   end
 end

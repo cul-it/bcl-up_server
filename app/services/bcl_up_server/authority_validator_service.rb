@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 # Provide service methods for running a a set of validation scenarios for an authority.
-module BCLUpServer
+module BclUpServer
   class AuthorityValidatorService
     class_attribute :validator_class,
                     :term_validator_class,
                     :search_validator_class,
                     :scenarios_loader_class
 
-    self.validator_class = BCLUpServer::ScenarioValidator
-    self.term_validator_class = BCLUpServer::TermScenarioValidator
-    self.search_validator_class = BCLUpServer::SearchScenarioValidator
-    self.scenarios_loader_class = BCLUpServer::ScenariosLoaderService
+    self.validator_class = BclUpServer::ScenarioValidator
+    self.term_validator_class = BclUpServer::TermScenarioValidator
+    self.search_validator_class = BclUpServer::SearchScenarioValidator
+    self.scenarios_loader_class = BclUpServer::ScenariosLoaderService
 
     VALIDATE_CONNECTIONS = validator_class::VALIDATE_CONNECTION
     VALIDATE_ACCURACY = validator_class::VALIDATE_ACCURACY

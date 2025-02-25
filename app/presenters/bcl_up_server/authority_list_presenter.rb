@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This presenter class provides all data needed by the view that show the list of authorities.
-module BCLUpServer
+module BclUpServer
   class AuthorityListPresenter
     # rubocop:disable Style/AsciiComments
     # @return [Array<Hash>] A list of status data for each scenario tested.

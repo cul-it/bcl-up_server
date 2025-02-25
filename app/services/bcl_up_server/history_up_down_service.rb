@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This class determines the state (e.g. fully_up, mostly_up, barely_up, down)of an authority during the last 30 days.
-module BCLUpServer
+module BclUpServer
   class HistoryUpDownService
     NO_DATA             = :no_data
     FULLY_UP            = :fully_up
@@ -9,13 +9,13 @@ module BCLUpServer
     BARELY_UP           = :barely_up
     DOWN                = :down
 
-    MOSTLY_UP_THRESHOLD = BCLUpServer.config.up_down_data_mostly_up_threshold
-    TIMEOUT_THRESHOLD   = BCLUpServer.config.up_down_data_timeouts_max_threshold
+    MOSTLY_UP_THRESHOLD = BclUpServer.config.up_down_data_mostly_up_threshold
+    TIMEOUT_THRESHOLD   = BclUpServer.config.up_down_data_timeouts_max_threshold
 
     class_attribute :authority_lister, :scenario_history_class, :time_service
-    self.authority_lister = BCLUpServer::AuthorityListerService
-    self.scenario_history_class = BCLUpServer::ScenarioRunHistory
-    self.time_service = BCLUpServer::TimeService
+    self.authority_lister = BclUpServer::AuthorityListerService
+    self.scenario_history_class = BclUpServer::ScenarioRunHistory
+    self.time_service = BclUpServer::TimeService
 
     def last_30_days
       data = {}

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This class loads scenario configuration file for an authority.
-module BCLUpServer
+module BclUpServer
   class ScenariosLoaderService
     # Load scenarios for testing an authority
     # @param authority_name [String] name of the authority to load (e.g. "agrovoc_direct")
@@ -15,10 +15,10 @@ module BCLUpServer
         scenarios_config = load_config(authority_name, status_log)
         return nil if scenarios_config.blank?
 
-        scenarios = BCLUpServer::Scenarios.new(authority: authority, authority_name: authority_name, scenarios_config: scenarios_config)
+        scenarios = BclUpServer::Scenarios.new(authority: authority, authority_name: authority_name, scenarios_config: scenarios_config)
       rescue Exception => e
         status_log.add(authority_name: authority_name,
-                       status: BCLUpServer::ScenarioValidator::FAIL,
+                       status: BclUpServer::ScenarioValidator::FAIL,
                        error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: #{e.message}")
         return nil
       end
@@ -26,7 +26,7 @@ module BCLUpServer
     end
 
     def self.load_authority(authority_name, status_log)
-      BCLUpServer::AuthorityLoaderService.load(authority_name: authority_name, status_log: status_log)
+      BclUpServer::AuthorityLoaderService.load(authority_name: authority_name, status_log: status_log)
     end
     private_class_method :load_authority
 
@@ -34,7 +34,7 @@ module BCLUpServer
       scenarios_config = YAML.load_file(scenario_path(authority_name))
       if scenarios_config.blank?
         status_log.add(authority_name: authority_name,
-                       status: BCLUpServer::ScenarioValidator::FAIL,
+                       status: BclUpServer::ScenarioValidator::FAIL,
                        error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: UNKNOWN")
         return nil
       end
@@ -45,7 +45,7 @@ module BCLUpServer
     def self.scenarios_exist?(authority_name, status_log)
       return true if File.exist?(scenario_path(authority_name))
       status_log.add(authority_name: authority_name,
-                     status: BCLUpServer::ScenarioValidator::FAIL,
+                     status: BclUpServer::ScenarioValidator::FAIL,
                      error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: #{scenario_path} does not exist.")
       false
     end

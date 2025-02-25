@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 # Helper methods for caching for monitoring status.
-module BCLUpServer
+module BclUpServer
   class CacheExpiryService
     class << self
       # @return [Float] number of seconds until cache should expire
       def cache_expiry
-        cache_expires_at - BCLUpServer::TimeService.current_time
+        cache_expires_at - BclUpServer::TimeService.current_time
       end
 
       def end_of_hour_expiry
-        ct = BCLUpServer::TimeService.current_time
+        ct = BclUpServer::TimeService.current_time
         ct.end_of_hour - ct
       end
 
@@ -28,8 +28,8 @@ module BCLUpServer
 
       # @return [ActiveSupport::TimeWithZone] DateTime at which cache should expire
       def cache_expires_at
-        offset = BCLUpServer.config.hour_offset_to_expire_cache
-        offset_time = BCLUpServer::TimeService.current_time
+        offset = BclUpServer.config.hour_offset_to_expire_cache
+        offset_time = BclUpServer::TimeService.current_time
         offset_time = offset_time.tomorrow unless (offset_time + 5.minutes).hour < offset
         offset_time.beginning_of_day + offset.hours - 5.minutes
       end

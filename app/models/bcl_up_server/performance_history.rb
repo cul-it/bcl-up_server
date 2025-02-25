@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 # Provide access to the scenario_results_history database table which tracks specific scenario runs over time.
-module BCLUpServer
+module BclUpServer
   class PerformanceHistory < ApplicationRecord
     self.table_name = 'performance_history'
 
     enum action: { fetch: 0, search: 1 }
 
     class_attribute :datatable_data_service_class, :graph_data_service_class
-    self.datatable_data_service_class = BCLUpServer::PerformanceDatatableService
-    self.graph_data_service_class = BCLUpServer::PerformanceGraphDataService
+    self.datatable_data_service_class = BclUpServer::PerformanceDatatableService
+    self.graph_data_service_class = BclUpServer::PerformanceGraphDataService
 
     class << self
-      include BCLUpServer::PerformanceHistoryDataKeys
+      include BclUpServer::PerformanceHistoryDataKeys
 
       # Save a scenario result
       # @param authority [String] name of the authority
       # @param action [Symbol] type of action being evaluated (e.g. :fetch, :search)
       # @param dt_stamp [Time] defaults to current time in preferred time zone
       # @return ActveRecord::Base for the new performance history record
-      def create_record(authority:, action:, dt_stamp: BCLUpServer::TimeService.current_time)
+      def create_record(authority:, action:, dt_stamp: BclUpServer::TimeService.current_time)
         create(dt_stamp: dt_stamp,
                authority: authority,
                action: action)

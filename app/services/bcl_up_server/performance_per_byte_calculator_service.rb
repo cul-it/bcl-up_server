@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 # This class calculates min, max, average stats for load, normalization, and full request times for a given set of performance records.
 require 'matrix'
-module BCLUpServer
+module BclUpServer
   class PerformancePerByteCalculatorService
-    include BCLUpServer::PerformanceHistoryDataKeys
+    include BclUpServer::PerformanceHistoryDataKeys
 
     TIME  = 0
     BYTES = 1

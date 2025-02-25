@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 # This class calculates performance stats for the performance datatable.
-module BCLUpServer
+module BclUpServer
   class PerformanceDatatableService
     class << self
-      include BCLUpServer::PerformanceHistoryDataKeys
+      include BclUpServer::PerformanceHistoryDataKeys
 
       class_attribute :stats_calculator_class, :performance_data_class, :authority_list_class
-      self.stats_calculator_class = BCLUpServer::PerformanceCalculatorService
-      self.performance_data_class = BCLUpServer::PerformanceHistory
-      self.authority_list_class = BCLUpServer::AuthorityListerService
+      self.stats_calculator_class = BclUpServer::PerformanceCalculatorService
+      self.performance_data_class = BclUpServer::PerformanceHistory
+      self.authority_list_class = BclUpServer::AuthorityListerService
 
       # Summary of performance by action for each authority for the configured time period (e.g. :day, :month, :year, :all).
       # @returns [Hash] performance statistics for configured time period by action for each authority
@@ -54,18 +54,18 @@ module BCLUpServer
       end
 
       def expected_time_period
-        BCLUpServer.config.performance_datatable_default_time_period
+        BclUpServer.config.performance_datatable_default_time_period
       end
 
       def records_for_authority(auth_name)
         case expected_time_period
         when :day
-          BCLUpServer.config.performance_cache.write_all # only need to write if just using today's data
-          performance_data_class.where(BCLUpServer::TimePeriodService.where_clause_for_last_24_hours(auth_name: auth_name))
+          BclUpServer.config.performance_cache.write_all # only need to write if just using today's data
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_24_hours(auth_name: auth_name))
         when :month
-          performance_data_class.where(BCLUpServer::TimePeriodService.where_clause_for_last_30_days(auth_name: auth_name))
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_30_days(auth_name: auth_name))
         when :year
-          performance_data_class.where(BCLUpServer::TimePeriodService.where_clause_for_last_12_months(auth_name: auth_name))
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_12_months(auth_name: auth_name))
         else
           all_records(auth_name)
         end

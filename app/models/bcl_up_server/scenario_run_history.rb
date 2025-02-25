@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Provide access to the scenario_run_history database table which tracks scenario runs over time.
-module BCLUpServer
+module BclUpServer
   class ScenarioRunHistory < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.table_name = 'scenario_run_history'
     belongs_to :scenario_run_registry
@@ -12,16 +12,16 @@ module BCLUpServer
     UNKNOWN_MARKER = '?'
 
     class_attribute :summary_class, :authority_lister_class
-    self.summary_class = BCLUpServer::ScenarioRunSummary
-    self.authority_lister_class = BCLUpServer::AuthorityListerService
+    self.summary_class = BclUpServer::ScenarioRunSummary
+    self.authority_lister_class = BclUpServer::AuthorityListerService
 
     class << self
       # Save a scenario result
       # @param run_id [Integer] the run on which to gather statistics
       # @param result [Hash] the scenario result to be saved
       def save_result(run_id:, scenario_result:)
-        registry = BCLUpServer::ScenarioRunRegistry.find(run_id)
-        BCLUpServer::ScenarioRunHistory.create(scenario_run_registry_id: run_id,
+        registry = BclUpServer::ScenarioRunRegistry.find(run_id)
+        BclUpServer::ScenarioRunHistory.create(scenario_run_registry_id: run_id,
                                             status: scenario_result[:status],
                                             authority_name: scenario_result[:authority_name],
                                             subauthority_name: scenario_result[:subauthority_name],
@@ -34,8 +34,8 @@ module BCLUpServer
       end
 
       # Get a summary of passing/failing tests for a run.
-      # @param scenario_run [BCLUpServer::ScenarioRunRegistry] the run on which to gather statistics
-      # @returns [BCLUpServer::ScenarioRunSummary] statistics on the requested run
+      # @param scenario_run [BclUpServer::ScenarioRunRegistry] the run on which to gather statistics
+      # @returns [BclUpServer::ScenarioRunSummary] statistics on the requested run
       # @example ScenarioRunSummary includes methods for accessing
       #   * run_id           [Integer] e.g. 14
       #   * run_dt_stamp     [ActiveSupport::TimeWithZone] e.g. Wed, 19 Feb 2020 16:01:07 UTC +00:00
@@ -78,7 +78,7 @@ module BCLUpServer
       #       run_time: 0.123 } ]
       def run_failures(run_id:)
         return [] unless run_id
-        BCLUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).where.not(status: :good).to_a
+        BclUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).where.not(status: :good).to_a
       end
 
       # Get a summary of the number of days passing/failing for scenario runs during configured time period
@@ -114,7 +114,7 @@ module BCLUpServer
       def count_days(status)
         where = time_period_where
         where[:status] = status
-        auths = BCLUpServer::ScenarioRunHistory.where(where).select("authority_name").group("date, authority_name")
+        auths = BclUpServer::ScenarioRunHistory.where(where).select("authority_name").group("date, authority_name")
                                             .order("authority_name").pluck(:authority_name)
         auths.each_with_object({}) do |auth, hash|
           hash[auth] = 0 unless hash.key? auth
@@ -123,17 +123,17 @@ module BCLUpServer
       end
 
       def authorities_in_run(run_id:)
-        BCLUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).pluck(:authority_name).uniq
+        BclUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).pluck(:authority_name).uniq
       end
 
       def authorities_with_failures_in_run(run_id:)
-        BCLUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).where.not(status: 'good').pluck('authority_name').uniq
+        BclUpServer::ScenarioRunHistory.where(scenario_run_registry_id: run_id).where.not(status: 'good').pluck('authority_name').uniq
       end
 
       # @return [Hash] status counts across all authorities (used for current test summary)
       # @example { "good" => 23, "bad" => 3, "unknown" => 0 }
       def status_counts_in_run(run_id:)
-        status = BCLUpServer::ScenarioRunHistory.group('status').where(scenario_run_registry_id: run_id).count
+        status = BclUpServer::ScenarioRunHistory.group('status').where(scenario_run_registry_id: run_id).count
         status["good"] = 0 unless status.key? "good"
         status["bad"] = 0 unless status.key? "bad"
         status["unknown"] = 0 unless status.key? "unknown"
@@ -141,7 +141,7 @@ module BCLUpServer
       end
 
       def runs_per_authority_for_time_period
-        status = BCLUpServer::ScenarioRunHistory.joins(:scenario_run_registry).where(time_period_where).group('authority_name', 'status').count
+        status = BclUpServer::ScenarioRunHistory.joins(:scenario_run_registry).where(time_period_where).group('authority_name', 'status').count
         status.each_with_object({}) do |(k, v), hash|
           h = hash[k[0]] || { "good" => 0, "bad" => 0 } # initialize for an authority if it doesn't already exist
           h[k[1]] = v
@@ -150,17 +150,17 @@ module BCLUpServer
       end
 
       def expected_time_period
-        BCLUpServer.config.historical_datatable_default_time_period
+        BclUpServer.config.historical_datatable_default_time_period
       end
 
       def time_period_where
         case expected_time_period
         when :day
-          BCLUpServer::TimePeriodService.where_clause_for_last_24_hours(dt_table: :scenario_run_history, dt_column: :date)
+          BclUpServer::TimePeriodService.where_clause_for_last_24_hours(dt_table: :scenario_run_history, dt_column: :date)
         when :month
-          BCLUpServer::TimePeriodService.where_clause_for_last_30_days(dt_table: :scenario_run_history, dt_column: :date)
+          BclUpServer::TimePeriodService.where_clause_for_last_30_days(dt_table: :scenario_run_history, dt_column: :date)
         when :year
-          BCLUpServer::TimePeriodService.where_clause_for_last_12_months(dt_table: :scenario_run_history, dt_column: :date)
+          BclUpServer::TimePeriodService.where_clause_for_last_12_months(dt_table: :scenario_run_history, dt_column: :date)
         else
           all_records
         end

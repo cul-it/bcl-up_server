@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 # Maintain a cache of failure data for scenario runs
-module BCLUpServer
+module BclUpServer
   class ScenarioRunFailuresCache
     class_attribute :scenario_history_class
-    self.scenario_history_class = BCLUpServer::ScenarioRunHistory
+    self.scenario_history_class = BclUpServer::ScenarioRunHistory
 
     class << self
-      include BCLUpServer::CacheKeys
+      include BclUpServer::CacheKeys
 
       # Set of failures for a run
-      # @param run [BCLUpServer::ScenarioRunRegistry]
+      # @param run [BclUpServer::ScenarioRunRegistry]
       # @returns [Array<Hash>] details for any failing scenarios in the run
       # @example
       #   [ { status: :bad,
@@ -32,7 +32,7 @@ module BCLUpServer
       #       run_time: 0.123 } ]
       def failures_for_run(run:)
         Rails.cache.fetch(cache_key_for_run_failures(run.id), expires_in: next_expiry, race_condition_ttl: 30.seconds) do
-          BCLUpServer.config.monitor_logger.debug("(BCLUpServer::ScenarioRunFailuresCache) - CALCULATING FAILURES for scenario run #{run.id}")
+          BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioRunFailuresCache) - CALCULATING FAILURES for scenario run #{run.id}")
           scenario_history_class.run_failures(run_id: run.id)
         end
       end
@@ -44,7 +44,7 @@ module BCLUpServer
       end
 
       def next_expiry
-        BCLUpServer::CacheExpiryService.cache_expiry
+        BclUpServer::CacheExpiryService.cache_expiry
       end
     end
   end

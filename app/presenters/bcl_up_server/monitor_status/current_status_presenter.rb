@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # This presenter class provides data related to last test run as needed by the view that monitors status of authorities.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   class CurrentStatusPresenter
-    # @param parent [BCLUpServer::MonitorStatusPresenter] parent presenter
+    # @param parent [BclUpServer::MonitorStatusPresenter] parent presenter
     # @param current_summary [ScenarioRunSummary] summary status of the latest run of test scenarios
     # @param current_data [Array<Hash>] current set of failures for the latest test run, if any
     def initialize(parent:, current_summary:, current_failure_data:)
@@ -13,23 +13,23 @@ module BCLUpServer::MonitorStatus
 
     # @return [ActiveSupport::TimeWithZone] date time stamp of last test run
     def last_updated_dt
-      @current_summary ? @current_summary.run_dt_stamp : BCLUpServer::TimeService.current_time
+      @current_summary ? @current_summary.run_dt_stamp : BclUpServer::TimeService.current_time
     end
 
     # @return [String] date with time of last test run
     def last_updated
       return I18n.t('bcl_up_server.monitor_status.summary.no_data') if @current_summary.blank?
-      I18n.t('bcl_up_server.monitor_status.summary.last_updated', date: BCLUpServer::TimeService.pretty_time(last_updated_dt))
+      I18n.t('bcl_up_server.monitor_status.summary.last_updated', date: BclUpServer::TimeService.pretty_time(last_updated_dt))
     end
 
     # @return [ActiveSupport::TimeWithZone] date time stamp of first recorded test run
     def first_updated_dt
-      BCLUpServer::ScenarioRunRegistry.first_run_dt
+      BclUpServer::ScenarioRunRegistry.first_run_dt
     end
 
     # @return [String] date with time of first recorded test run
     def first_updated
-      BCLUpServer::TimeService.pretty_time(first_updated_dt)
+      BclUpServer::TimeService.pretty_time(first_updated_dt)
     end
 
     # @return [Integer] number of loaded authorities

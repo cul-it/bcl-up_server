@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # This module sets up the hash keys for performance data and allows them to be used across all classes
 # setting and reading from the performance data hash.
-module BCLUpServer
+module BclUpServer
   module PerformanceHistoryDataKeys
     ALL_AUTH = :all_authorities
     SEARCH = :search

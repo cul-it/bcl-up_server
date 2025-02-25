@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This class runs a single term scenario and logs the results.
-module BCLUpServer
+module BclUpServer
   class TermScenarioValidator < ScenarioValidator
     TERM_ACTION = 'term'
 

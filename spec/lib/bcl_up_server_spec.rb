@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe BCLUpServer do
+RSpec.describe BclUpServer do
   # rubocop:disable RSpec/MessageChain
   # rubocop:disable RSpec/MessageSpies
   describe '.log_agent_info' do

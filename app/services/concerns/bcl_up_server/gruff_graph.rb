@@ -3,7 +3,7 @@ require 'fileutils'
 require 'gruff'
 
 # This module include provides graph methods for generating graphs with Gruff
-module BCLUpServer
+module BclUpServer
   module GruffGraph
   private
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe BCLUpServer::TimePeriodService do
-  before { allow(BCLUpServer::TimeService).to receive(:current_time).and_return(Time.find_zone('Eastern Time (US & Canada)').local(2020, 1, 1)) }
+RSpec.describe BclUpServer::TimePeriodService do
+  before { allow(BclUpServer::TimeService).to receive(:current_time).and_return(Time.find_zone('Eastern Time (US & Canada)').local(2020, 1, 1)) }
 
-  let(:end_range) { BCLUpServer::TimeService.current_time }
+  let(:end_range) { BclUpServer::TimeService.current_time }
 
   let(:auth_name) { 'LOC_DIRECT' }
   let(:auth_table) { :scenario_run_history }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Holds test run summary data providing methods for accessing each data point.
-module BCLUpServer
+module BclUpServer
   class ScenarioRunSummary
     # @return [Integer] the id of the scenario run being summarized
     attr_reader :run_id

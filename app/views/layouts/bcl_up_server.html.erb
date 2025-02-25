@@ -34,10 +34,10 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <ul class="nav-menu">
-          <% BCLUpServer.config.navmenu_presenter.leftmenu_items.each do |item| %>
+          <% BclUpServer.config.navmenu_presenter.leftmenu_items.each do |item| %>
             <li class='left-menu'><%= link_to item[:label], item[:url] %></li>
           <% end %>
-          <% BCLUpServer.config.navmenu_presenter.rightmenu_items.each do |item| %>
+          <% BclUpServer.config.navmenu_presenter.rightmenu_items.each do |item| %>
             <li class='right-menu'><%= link_to item[:label], item[:url] %></li>
           <% end %>
         </ul>

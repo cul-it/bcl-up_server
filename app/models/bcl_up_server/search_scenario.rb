@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # This class parses the search configuration from the yml file into the parts needed by the search scenario validator.
-module BCLUpServer
+module BclUpServer
   class SearchScenario < AuthorityScenario
     # @return [String] query being executed by this scenario
     attr_reader :query
@@ -39,7 +39,7 @@ module BCLUpServer
     def url
       subauth = "/#{subauthority_name}" if subauthority?
       context = context? ? '&context=true' : ''
-      prefix = "#{BCLUpServer::Engine.qa_engine_mount}/search/linked_data/#{authority_name.downcase}#{subauth}"
+      prefix = "#{BclUpServer::Engine.qa_engine_mount}/search/linked_data/#{authority_name.downcase}#{subauth}"
       "#{prefix}?q=#{query}#{url_replacements}#{context}"
     end
 

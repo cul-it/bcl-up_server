@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Abstract class that parses the authority configuration from the yml file into the parts needed by inheriting scenario types.
-module BCLUpServer
+module BclUpServer
   class AuthorityScenario
     # @return [Qa::Authorities::LinkedData::GenericAuthority] authority instance the scenarios run against
     attr_reader :authority

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe BCLUpServer::HistoryUpDownService do
+RSpec.describe BclUpServer::HistoryUpDownService do
   let(:service) { described_class.new }
 
   context 'when total_count is 0' do

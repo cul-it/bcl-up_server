@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module BCLUpServer
+module BclUpServer
   class Configuration
     # Preferred time zone for reporting historical data and performance data
     # @param [String] time zone name
@@ -33,7 +33,7 @@ module BCLUpServer
     #   For preferred_time_zone_name of 'Pacific Time (US & Canada)', use 0 for slow down at midnight PT/3am ET
     # @deprecated Use {#hour_offset_to_expire_cache=} instead.
     def hour_offset_to_run_monitoring_tests=(offset)
-      Deprecation.warn(BCLUpServer, "hour_offset_to_run_monitoring_tests= is deprecated and will be removed from a future release (use #hour_offset_to_expire_cache= instead)")
+      Deprecation.warn(BclUpServer, "hour_offset_to_run_monitoring_tests= is deprecated and will be removed from a future release (use #hour_offset_to_expire_cache= instead)")
       @hour_offset_to_expire_cache = offset
     end
 
@@ -188,7 +188,7 @@ module BCLUpServer
     # To extend, set additional navigation menu items using #navmenu_extra_leftitems
     def navmenu_presenter
       return @navmenu_presenter if @navmenu_presenter.present?
-      @navmenu_presenter ||= BCLUpServer::NavmenuPresenter.new
+      @navmenu_presenter ||= BclUpServer::NavmenuPresenter.new
       @navmenu_presenter.append_leftmenu_items(navmenu_extra_leftitems)
       @navmenu_presenter
     end
@@ -211,7 +211,7 @@ module BCLUpServer
     deprecation_deprecate suppress_performance_gathering: "use #suppress_performance_gathering? instead"
 
     # Performance data is gathered on every incoming query.  Basic stats are logged from QA.  Full stats are logged
-    # by BCLUpServer and can eat up logging realestate.  To suppress the logging of details, set this config to true.
+    # by BclUpServer and can eat up logging realestate.  To suppress the logging of details, set this config to true.
     # @param [Boolean] do not log performance data details when true (defaults to false for backward compatibitily)
     attr_writer :suppress_logging_performance_details
     def suppress_logging_performance_details?
@@ -234,7 +234,7 @@ module BCLUpServer
 
     # For internal use only
     def performance_cache
-      @performance_cache ||= BCLUpServer::PerformanceCache.new
+      @performance_cache ||= BclUpServer::PerformanceCache.new
     end
 
     # Enable logging of performance cache

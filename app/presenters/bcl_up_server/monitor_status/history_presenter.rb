@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # This presenter class provides historical testing data needed by the view that monitors status of authorities.
-module BCLUpServer::MonitorStatus
+module BclUpServer::MonitorStatus
   class HistoryPresenter
     CAUTION_THRESHOLD = 0.05
     WARNING_THRESHOLD = 0.1
 
-    # @param parent [BCLUpServer::MonitorStatusPresenter] parent presenter
+    # @param parent [BclUpServer::MonitorStatusPresenter] parent presenter
     # @param historical_summary_data [Array<Hash>] summary of past failuring runs per authority to drive chart
     # @example historical_summary_data
     # {
@@ -28,7 +28,7 @@ module BCLUpServer::MonitorStatus
     end
 
     def historical_graph
-      BCLUpServer::HistoryGraphingService.history_graph_image_path
+      BclUpServer::HistoryGraphingService.history_graph_image_path
     end
 
     # @return [Boolean] true if historical test data exists; otherwise false
@@ -39,7 +39,7 @@ module BCLUpServer::MonitorStatus
     # Return the first date of data represented in the history graph and data table
     # @return [String] string version of date formatted with just date (e.g. "02/01/2020")
     def history_start
-      start_dt = case BCLUpServer.config.historical_datatable_default_time_period
+      start_dt = case BclUpServer.config.historical_datatable_default_time_period
                  when :month
                    history_end_dt - 1.month
                  when :year
@@ -47,7 +47,7 @@ module BCLUpServer::MonitorStatus
                  else
                    @parent.first_updated_dt
                  end
-      BCLUpServer::TimeService.pretty_date(start_dt)
+      BclUpServer::TimeService.pretty_date(start_dt)
     end
 
     # Return the last date of data represented in the history graph and data table
@@ -59,7 +59,7 @@ module BCLUpServer::MonitorStatus
     # Return the last date of data represented in the history graph and data table
     # @return [String] string version of date formatted with just date (e.g. "02/01/2020")
     def history_end
-      BCLUpServer::TimeService.pretty_date(history_end_dt)
+      BclUpServer::TimeService.pretty_date(history_end_dt)
     end
 
     # @return [String] the name of the css style class to use for the status cell based on the status of the scenario test.
@@ -71,11 +71,11 @@ module BCLUpServer::MonitorStatus
     def status_label(status)
       case status[:status]
       when :good
-        BCLUpServer::ScenarioRunHistory::GOOD_MARKER
+        BclUpServer::ScenarioRunHistory::GOOD_MARKER
       when :bad
-        BCLUpServer::ScenarioRunHistory::BAD_MARKER
+        BclUpServer::ScenarioRunHistory::BAD_MARKER
       when :unknown
-        BCLUpServer::ScenarioRunHistory::UNKNOWN_MARKER
+        BclUpServer::ScenarioRunHistory::UNKNOWN_MARKER
       end
     end
 
@@ -157,12 +157,12 @@ module BCLUpServer::MonitorStatus
 
     # @return [Boolean] true if historical graph should be visible; otherwise false
     def display_historical_graph?
-      BCLUpServer.config.display_historical_graph? && BCLUpServer::HistoryGraphingService.history_graph_image_exists?
+      BclUpServer.config.display_historical_graph? && BclUpServer::HistoryGraphingService.history_graph_image_exists?
     end
 
     # @return [Boolean] true if historical datatable should be visible; otherwise false
     def display_historical_datatable?
-      BCLUpServer.config.display_historical_datatable?
+      BclUpServer.config.display_historical_datatable?
     end
   end
 end

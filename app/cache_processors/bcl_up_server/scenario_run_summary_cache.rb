@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 # Maintain a cache of summary test data for scenario runs
-module BCLUpServer
+module BclUpServer
   class ScenarioRunSummaryCache
     class_attribute :scenario_history_class
-    self.scenario_history_class = BCLUpServer::ScenarioRunHistory
+    self.scenario_history_class = BclUpServer::ScenarioRunHistory
 
     class << self
-      include BCLUpServer::CacheKeys
+      include BclUpServer::CacheKeys
 
       # Summary for a run
-      # @param run [BCLUpServer::ScenarioRunRegistry]
-      # @returns [BCLUpServer::ScenarioRunSummary] statistics on the requested run
+      # @param run [BclUpServer::ScenarioRunRegistry]
+      # @returns [BclUpServer::ScenarioRunSummary] statistics on the requested run
       # @example ScenarioRunSummary includes methods for accessing
       #   * run_id           [Integer] e.g. 14
       #   * run_dt_stamp     [ActiveSupport::TimeWithZone] e.g. Wed, 19 Feb 2020 16:01:07 UTC +00:00
@@ -21,7 +21,7 @@ module BCLUpServer
       #   * total_scenario_count    [Integer] e.g. 159
       def summary_for_run(run:)
         Rails.cache.fetch(cache_key_for_run_summary(run.id), expires_in: next_expiry, race_condition_ttl: 30.seconds) do
-          BCLUpServer.config.monitor_logger.debug("(BCLUpServer::ScenarioRunSummaryCache) - CALCULATING SUMMARY for scenario run #{run.id}")
+          BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioRunSummaryCache) - CALCULATING SUMMARY for scenario run #{run.id}")
           scenario_history_class.run_summary(scenario_run: run)
         end
       end
@@ -33,7 +33,7 @@ module BCLUpServer
       end
 
       def next_expiry
-        BCLUpServer::CacheExpiryService.cache_expiry
+        BclUpServer::CacheExpiryService.cache_expiry
       end
     end
   end

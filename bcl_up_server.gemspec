@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.name          = "bcl-up_server"
   spec.require_paths = ["lib"]
-  spec.version       = BCLUpServer::VERSION
+  spec.version       = BclUpServer::VERSION
 
   spec.license       = 'Apache-2.0'
 
