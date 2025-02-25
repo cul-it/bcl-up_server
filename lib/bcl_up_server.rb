@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 require 'bcl_up_server/engine'
 require 'bcl_up_server/version'
+#=================== TODO ================
+require 'bcl_up_server/configuration' # Explicit require TODO: Look at removing later
+
 require 'user_agent'
 require 'deprecation'
 
 module BCLUpServer
-  extend ActiveSupport::Autoload
+  #=================== TODO ================
+  # extend ActiveSupport::Autoload
+  #
   extend Deprecation
 
   self.deprecation_horizon = 'cul-it/BCLUpServer v6.0.0'
