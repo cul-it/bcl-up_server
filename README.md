@@ -1,6 +1,11 @@
-# BCL-UP Server
+# Blue Core Lookup (BCL-UP) Server
+**BCL-UP** is forked from the work of [qa_server](https://github.com/LD4P/qa_server), and is tailored for the needs of the [Blue Core](https://bluecore.info/) Project.
 
-This rails engine can be installed into your app to serve as a Questioning Authority (QA) Server for accessing external authorities.  It is part of a larger architecture supporting linked data authority access.  From this engine, you can send a search query and get back multiple results OR you can fetch a single term.  The engine provides UI for monitoring connections to configured authorities and the ability to check the current status of a single authority to determine if it is up and running now. 
+This rails engine can be installed into your app to serve as a Questioning Authority (QA) Server for accessing external
+authorities.It is part of a larger architecture supporting linked data authority access.  
+From this engine, you can send a search query and get back multiple results OR you can fetch a single term.  
+The engine provides UI for monitoring connections to configured authorities and the ability to check the current status of a single authority to determine 
+if it is up and running now. 
 
 ## Reference
 
@@ -245,7 +250,6 @@ This document addresses the use of QA Server app for access to linked data autho
 *Have a suggestion for code improvements or new linked data authorities?*  Submit an issue with your request.  For new authorities, include links to the authority's linked data API and other access documentation.
   
 *Have code improvements you've written or a configuration for a new authority you'd like to submit?* Submit a PR and your changes will be reviewed for possible inclussion.  If you want to make a substantial change, you may want to express your ideas in an issue first for discussion.
-
 
 ## License
 The gem is available as open source under the terms of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
