@@ -2,7 +2,7 @@
 source "https://rubygems.org"
 # git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Declare your gem's dependencies in qa_server.gemspec.
+# Declare your gem's dependencies in bcl_up_server.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec path: File.expand_path('..', __FILE__)
