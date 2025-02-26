@@ -1,5 +1,3 @@
-//@import 'bcl_up_server/styles', 'bcl_up_server/header', 'bcl_up_server/footer', 'bcl_up_server/home-page', 'bcl_up_server/usage',
-//        'bcl_up_server/authorities', 'bcl_up_server/check-status', 'bcl_up_server/monitor-status', 'bcl_up_server/fetch';
 @import 'styles';
 @import 'header';
 @import 'footer';
@@ -9,21 +7,3 @@
 @import 'check-status';
 @import 'monitor-status';
 @import 'fetch';
-
-
-///* This class is to workaround an issue in which Bootstrap requires a div to display a tooltip
-// * on a disabled button. Using a span instead of a div would be ideal but unfortunately it does
-// * not render the tooltip correctly in all browsers (e.g. in Chrome the tooltip is detected in
-// * the wrong position). This class forces the div to render inline, just like a span.
-// *
-// * More info:
-// *    http://getbootstrap.com/css/#responsive-utilities-classes
-// *    http://stackoverflow.com/a/19938049/446681
-// */
-//.visible-all-inline-block {
-//  display: inline-block;
-//}
-//
-//.controlled_vocabulary {
-//  @extend .multi_value;
-//}
