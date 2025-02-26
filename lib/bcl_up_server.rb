@@ -20,12 +20,8 @@ module BclUpServer
   # @return [Qa::Configuration]
   # @see Qa::Configuration for configuration options
   def self.config(&block)
-    puts "############# BclUpServer Gem CONFIG ###############"
     @config ||= BclUpServer::Configuration.new
-    puts @config
-
     yield @config if block
-
     @config
   end
 
