@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-namespace :qa_server do
+namespace :bcl_up_server do
   namespace :install do
-    desc 'Copy migrations from QaServer to application'
+    desc 'Copy migrations from BclUpServer to application'
     task migrations: :environment do
-      QaServer::DatabaseMigrator.copy
+      BclUpServer::DatabaseMigrator.copy
     end
   end
 end

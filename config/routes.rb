@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-QaServer::Engine.routes.draw do
+BclUpServer::Engine.routes.draw do
   # Downloads controller route
   resources :homepage, only: 'index'
 
