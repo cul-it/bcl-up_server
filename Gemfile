@@ -10,6 +10,7 @@ gemspec path: File.expand_path('..', __FILE__)
 group :development, :test do
   gem 'coveralls', require: false
   gem 'simplecov', require: false
+  gem 'byebug'
 end
 
 # Declare any dependencies that are still in development here instead of in
