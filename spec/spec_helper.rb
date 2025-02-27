@@ -24,7 +24,17 @@ Coveralls.wear!
 
 require 'rspec/rails'
 require 'webmock/rspec'
-# require 'pry'
+
+# 🔹 Manually load the Rails environment to ensure the engine is properly loaded
+begin
+  require File.expand_path('../../config/environment', __FILE__)
+rescue LoadError => e
+  puts "⚠️  Warning: Could not load Rails environment. Engine might not be fully loaded."
+  puts e.message
+end
+
+# 🔹 Ensure all engine classes are loaded to prevent uninitialized constant errors
+Rails.application.eager_load!
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -52,6 +62,11 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 end
 
+# 🔹 Check if `BclUpServer` is loaded, otherwise print a warning
+unless defined?(BclUpServer)
+  puts "⚠️  Warning: BclUpServer is not loaded! Tests might fail due to missing engine."
+end
+
 def webmock_fixture(fixture)
   File.new File.expand_path(File.join("../fixtures", fixture), __FILE__)
 end
@@ -63,6 +78,11 @@ def load_fixture_file(fname)
   end
 end
 
-BclUpServer.config.suppress_performance_gathering = true
-BclUpServer.config.suppress_logging_performance_details = true
-BclUpServer.config.preferred_time_zone_name = 'Eastern Time (US & Canada)'
+# 🔹 Ensure BclUpServer configuration is accessible
+if defined?(BclUpServer)
+  BclUpServer.config.suppress_performance_gathering = true
+  BclUpServer.config.suppress_logging_performance_details = true
+  BclUpServer.config.preferred_time_zone_name = 'Eastern Time (US & Canada)'
+else
+  puts "⚠️  Warning: BclUpServer config could not be set because the engine is not loaded."
+end
