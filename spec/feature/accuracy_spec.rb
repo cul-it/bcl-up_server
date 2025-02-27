@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
 # rubocop:disable RSpec/InstanceVariable
 RSpec.describe 'Accuracy test' do # rubocop:disable RSpec/DescribeClass

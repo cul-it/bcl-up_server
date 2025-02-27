@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 require 'linkeddata'
 require 'json'
-require 'engine_cart'
 require 'simplecov'
 require 'coveralls'
-require 'byebug' unless ENV['TRAVIS']
+require 'byebug'
+require 'engine_cart'
+require 'rails'
 
-ENV["RAILS_ENV"] ||= "test"
-
+# Set up test coverage reporting
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start('rails') do
   add_filter '/.internal_test_app'
@@ -18,13 +18,13 @@ SimpleCov.start('rails') do
   add_filter '/lib/qa/engine.rb'
 end
 SimpleCov.command_name 'spec'
-
-EngineCart.load_application!
 Coveralls.wear!
+
+# Load EngineCart
+EngineCart.load_application!
 
 require 'rspec/rails'
 require 'webmock/rspec'
-# require 'pry'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -32,14 +32,8 @@ Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   config.fixture_path = File.expand_path("../fixtures", __FILE__)
-
   config.use_transactional_fixtures = true
-
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
@@ -48,10 +42,9 @@ RSpec.configure do |config|
 
   # Disable Webmock if we choose so we can test against the authorities, instead of their mocks
   WebMock.disable! if ENV["WEBMOCK"] == "disabled"
-
-  config.infer_spec_type_from_file_location!
 end
 
+# Helper methods
 def webmock_fixture(fixture)
   File.new File.expand_path(File.join("../fixtures", fixture), __FILE__)
 end
@@ -63,6 +56,7 @@ def load_fixture_file(fname)
   end
 end
 
+# Configuration for BclUpServer
 BclUpServer.config.suppress_performance_gathering = true
 BclUpServer.config.suppress_logging_performance_details = true
 BclUpServer.config.preferred_time_zone_name = 'Eastern Time (US & Canada)'

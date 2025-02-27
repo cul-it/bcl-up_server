@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe BclUpServer::TimePeriodService do
   before { allow(BclUpServer::TimeService).to receive(:current_time).and_return(Time.find_zone('Eastern Time (US & Canada)').local(2020, 1, 1)) }

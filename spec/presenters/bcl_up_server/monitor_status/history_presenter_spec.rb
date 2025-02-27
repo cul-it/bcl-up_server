@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe BclUpServer::MonitorStatus::HistoryPresenter do
   let(:presenter) { described_class.new(parent: nil, historical_summary_data: historical_summary_data) }
