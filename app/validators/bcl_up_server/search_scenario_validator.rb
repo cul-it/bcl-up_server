@@ -24,7 +24,7 @@ module BclUpServer
       SEARCH_ACTION
     end
 
-    #TODO: causes deprecation warning during testing (not using request_header)
+    # RESOLVE: causes deprecation warning during testing (not using request_header)
     # CONCRETE Implementation: Run the connection test and log results
     def run_connection_scenario
       test_connection(min_expected_size: scenario.min_result_size, scenario_type_name: 'search') do
@@ -35,7 +35,7 @@ module BclUpServer
       end
     end
 
-    #TODO: causes deprecation warning during testing (not using request_header)
+    # RESOLVE: causes deprecation warning during testing (not using request_header)
     # CONCRETE Implementation: Run the accuracy test and log results
     def run_accuracy_scenario
       test_accuracy(subject_uri: scenario.subject_uri, expected_by_position: scenario.expected_by_position, pending: scenario.pending?) do
