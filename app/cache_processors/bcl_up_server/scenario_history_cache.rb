@@ -16,7 +16,7 @@ module BclUpServer
       #   { 'agrovoc' => { good: 31, bad: 2 },
       #     'geonames_ld4l_cache' => { good: 32, bad: 1 } }
       def historical_summary(force: false)
-        Rails.cache.fetch(cache_key_for_historical_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
+        Rails.cache.fetch(cache_key_for_historical_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force:) do
           BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioHistoryCache) - CALCULATING HISTORY of scenario runs (force: #{force})")
           scenario_history_class.historical_summary
         end
@@ -29,7 +29,7 @@ module BclUpServer
       #   { 'agrovoc' => [ :fully_up, :fully_up, :down, :mostly_up, ...],
       #     'geonames_ld4l_cache' => [ :fully_up, :mostly_up, :down, :fully_up, :timeouts, ...] }
       def historical_up_down_data(force: false)
-        Rails.cache.fetch(cache_key_for_historical_up_down_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
+        Rails.cache.fetch(cache_key_for_historical_up_down_data, expires_in: next_expiry, race_condition_ttl: 30.seconds, force:) do
           BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioHistoryCache) - CALCULATING UP-DOWN STATUS HISTORY of scenario runs (force: #{force})")
           scenario_up_down_class.new.last_30_days
         end

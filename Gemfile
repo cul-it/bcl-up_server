@@ -10,6 +10,7 @@ gemspec path: File.expand_path('..', __FILE__)
 group :development, :test do
   gem 'coveralls', require: false
   gem 'simplecov', require: false
+  gem 'byebug'
 end
 
 # Declare any dependencies that are still in development here instead of in
@@ -21,8 +22,8 @@ end
 # gem 'byebug', group: [:development, :test]
 
 # BEGIN ENGINE_CART BLOCK
-# engine_cart: 1.1.0
-# engine_cart stanza: 0.10.0
+# engine_cart: 2.6.0
+# engine_cart stanza: 2.5.0
 # the below comes from engine_cart, a gem used to test this Rails engine gem in the context of a Rails app.
 file = File.expand_path('Gemfile', ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path('.internal_test_app', File.dirname(__FILE__)))
 if File.exist?(file)

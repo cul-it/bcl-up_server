@@ -50,7 +50,7 @@ module BclUpServer
       #     retrieve_90th_ms: 12.3, graph_load_90th_ms: 12.3, normalization_90th_ms: 4.2, full_request_90th_ms: 16.5 }
       def data_table_stats(auth_name, action)
         records = records_for_authority(auth_name)
-        stats_calculator_class.new(records, action: action).calculate_stats_with_percentiles
+        stats_calculator_class.new(records, action:).calculate_stats_with_percentiles
       end
 
       def expected_time_period
@@ -61,11 +61,11 @@ module BclUpServer
         case expected_time_period
         when :day
           BclUpServer.config.performance_cache.write_all # only need to write if just using today's data
-          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_24_hours(auth_name: auth_name))
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_24_hours(auth_name:))
         when :month
-          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_30_days(auth_name: auth_name))
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_30_days(auth_name:))
         when :year
-          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_12_months(auth_name: auth_name))
+          performance_data_class.where(BclUpServer::TimePeriodService.where_clause_for_last_12_months(auth_name:))
         else
           all_records(auth_name)
         end

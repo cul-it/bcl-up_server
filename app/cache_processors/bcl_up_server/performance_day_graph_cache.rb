@@ -6,7 +6,7 @@ module BclUpServer
       # Generates graphs for the past 24 hours for :search, :fetch, and :all actions for each authority.
       # @param force [Boolean] if true, run the tests even if the cache hasn't expired; otherwise, use cache if not expired
       def generate_graphs(force: false)
-        Rails.cache.fetch(cache_key, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
+        Rails.cache.fetch(cache_key, expires_in: next_expiry, race_condition_ttl: 30.seconds, force:) do
           BclUpServer.config.monitor_logger.debug("(BclUpServer::PerformanceDayGraphCache) - KICKING OFF PERFORMANCE DAY GRAPH GENERATION (force: #{force})")
           BclUpServer::PerformanceDayGraphJob.perform_later
           "Graphs generation initiated at #{BclUpServer::TimeService.current_time}"

@@ -15,9 +15,9 @@ module BclUpServer
         scenarios_config = load_config(authority_name, status_log)
         return nil if scenarios_config.blank?
 
-        scenarios = BclUpServer::Scenarios.new(authority: authority, authority_name: authority_name, scenarios_config: scenarios_config)
+        scenarios = BclUpServer::Scenarios.new(authority:, authority_name:, scenarios_config:)
       rescue Exception => e
-        status_log.add(authority_name: authority_name,
+        status_log.add(authority_name:,
                        status: BclUpServer::ScenarioValidator::FAIL,
                        error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: #{e.message}")
         return nil
@@ -26,14 +26,14 @@ module BclUpServer
     end
 
     def self.load_authority(authority_name, status_log)
-      BclUpServer::AuthorityLoaderService.load(authority_name: authority_name, status_log: status_log)
+      BclUpServer::AuthorityLoaderService.load(authority_name:, status_log:)
     end
     private_class_method :load_authority
 
     def self.load_config(authority_name, status_log)
       scenarios_config = YAML.load_file(scenario_path(authority_name))
       if scenarios_config.blank?
-        status_log.add(authority_name: authority_name,
+        status_log.add(authority_name:,
                        status: BclUpServer::ScenarioValidator::FAIL,
                        error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: UNKNOWN")
         return nil
@@ -44,7 +44,7 @@ module BclUpServer
 
     def self.scenarios_exist?(authority_name, status_log)
       return true if File.exist?(scenario_path(authority_name))
-      status_log.add(authority_name: authority_name,
+      status_log.add(authority_name:,
                      status: BclUpServer::ScenarioValidator::FAIL,
                      error_message: "Unable to load scenarios for authority '#{authority_name}'; cause: #{scenario_path} does not exist.")
       false

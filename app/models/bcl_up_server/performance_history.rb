@@ -19,9 +19,7 @@ module BclUpServer
       # @param dt_stamp [Time] defaults to current time in preferred time zone
       # @return ActveRecord::Base for the new performance history record
       def create_record(authority:, action:, dt_stamp: BclUpServer::TimeService.current_time)
-        create(dt_stamp: dt_stamp,
-               authority: authority,
-               action: action)
+        create(dt_stamp:, authority:, action:)
       end
 
       # Performance data for a day, a month, a year, and all time for each authority.
@@ -39,7 +37,7 @@ module BclUpServer
       #     AGROVOC_LD4L_CACHE: { ... # same data for each authority  }
       #   }
       def performance_table_data(force: false)
-        datatable_data_service_class.calculate_datatable_data(force: force)
+        datatable_data_service_class.calculate_datatable_data(force:)
       end
 
       # Performance data for a day, a month, a year, and all time for each authority.
@@ -77,7 +75,7 @@ module BclUpServer
       #     AGROVOC_LD4L_CACHE: { ... # same data for each authority  }
       #   }
       def performance_graph_data(force: false)
-        graph_data_service_class.calculate_graph_data(force: force)
+        graph_data_service_class.calculate_graph_data(force:)
       end
     end
   end
