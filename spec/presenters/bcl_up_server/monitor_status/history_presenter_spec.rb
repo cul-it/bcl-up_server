@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe BclUpServer::MonitorStatus::HistoryPresenter do
-  let(:presenter) { described_class.new(parent: nil, historical_summary_data: historical_summary_data) }
+  let(:presenter) { described_class.new(parent: nil, historical_summary_data:) }
   # rubocop:disable Layout/ExtraSpacing
   let(:historical_summary_data) do
     # { 'auth_name' => { good: count_of_passing_tests, bad: count_of_failing_tests } }

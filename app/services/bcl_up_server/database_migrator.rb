@@ -47,7 +47,7 @@ module BclUpServer
       migrations.each do |filename|
         migration_template filename,
                            "db/migrate/#{parse_basename_from(filename)}",
-                           migration_version: migration_version
+                           migration_version:
       end
     end
 

@@ -16,7 +16,7 @@ module BclUpServer
     def index
       log_header
       validate(authorities_to_validate, validation_type)
-      @presenter = presenter_class.new(authorities_list: authorities_list,
+      @presenter = presenter_class.new(authorities_list:,
                                        connection_status_data: connection_status_data_from_log,
                                        accuracy_status_data: accuracy_status_data_from_log,
                                        comparison_status_data: comparison_status_data_from_log)

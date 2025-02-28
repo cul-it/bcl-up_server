@@ -18,7 +18,7 @@ module BclUpServer
       # @return [Boolean] true if cache has expired or is being forced to expire
       def cache_expired?(key:, force:, next_expiry:)
         # will return true only if the full expiry has passed or force was requested
-        force = Rails.cache.fetch(key, expires_in: 5.minutes, race_condition_ttl: 30.seconds, force: force) { true }
+        force = Rails.cache.fetch(key, expires_in: 5.minutes, race_condition_ttl: 30.seconds, force:) { true }
         # reset cache so it will next expired at expected time
         Rails.cache.fetch(key, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: true) { false }
         force

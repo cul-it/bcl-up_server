@@ -22,15 +22,15 @@ module BclUpServer
       def save_result(run_id:, scenario_result:)
         registry = BclUpServer::ScenarioRunRegistry.find(run_id)
         BclUpServer::ScenarioRunHistory.create(scenario_run_registry_id: run_id,
-                                            status: scenario_result[:status],
-                                            authority_name: scenario_result[:authority_name],
-                                            subauthority_name: scenario_result[:subauthority_name],
-                                            service: scenario_result[:service],
-                                            action: scenario_result[:action],
-                                            url: scenario_result[:url],
-                                            err_message: scenario_result[:err_message],
-                                            run_time: scenario_result[:run_time],
-                                            date: registry.dt_stamp.to_date)
+                                               status: scenario_result[:status],
+                                               authority_name: scenario_result[:authority_name],
+                                               subauthority_name: scenario_result[:subauthority_name],
+                                               service: scenario_result[:service],
+                                               action: scenario_result[:action],
+                                               url: scenario_result[:url],
+                                               err_message: scenario_result[:err_message],
+                                               run_time: scenario_result[:run_time],
+                                               date: registry.dt_stamp.to_date)
       end
 
       # Get a summary of passing/failing tests for a run.

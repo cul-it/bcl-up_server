@@ -25,7 +25,7 @@ module BclUpServer
       #   }
       def calculate(authority_name:, action:, n: 10)
         records = records_by(authority_name, action)
-        stats_calculator_class.new(records: records, n: n).calculate
+        stats_calculator_class.new(records:, n:).calculate
       end
 
     private

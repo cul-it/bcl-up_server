@@ -4,8 +4,8 @@ module PrependedLinkedData::FindTerm
   # @return [Hash] single term results in requested format
   def find(id, request_header: {}, language: nil, replacements: {}, subauth: nil, format: nil, performance_data: false) # rubocop:disable Metrics/ParameterLists
     return super if BclUpServer.config.suppress_performance_gathering?
-    request_header = setup_find(request_header: request_header, language: language, replacements: replacements, subauth: subauth,
-                                format: format, performance_data: performance_data)
+    request_header = setup_find(request_header:, language:, replacements:, subauth:,
+                                format:, performance_data:)
     @phid = BclUpServer.config.performance_cache.new_entry(authority: authority_name, action: 'fetch')
     begin
       full_results = super
@@ -22,7 +22,7 @@ private
   def setup_find(request_header: {}, language: nil, replacements: {}, subauth: nil, format: nil, performance_data: false) # rubocop:disable Metrics/ParameterLists
     BclUpServer.log_agent_info(request_header[:request])
     @start_time_s = BclUpServer::TimeService.current_time_s
-    request_header = build_request_header(language: language, replacements: replacements, subauth: subauth, format: format, performance_data: performance_data) if request_header.empty?
+    request_header = build_request_header(language:, replacements:, subauth:, format:, performance_data:) if request_header.empty?
     @saved_performance_data = performance_data || request_header[:performance_data]
     request_header[:performance_data] = true
     request_header
@@ -34,7 +34,7 @@ private
                 size_bytes: full_results[:performance][:fetched_bytes],
                 retrieve_plus_graph_load_time_ms: full_results[:performance][:fetch_time_s] * 1000,
                 normalization_time_ms: full_results[:performance][:normalization_time_s] * 1000 }
-    BclUpServer.config.performance_cache.update(id: @phid, updates: updates)
+    BclUpServer.config.performance_cache.update(id: @phid, updates:)
     BclUpServer.config.performance_cache.complete_entry(id: @phid)
   end
 
@@ -45,7 +45,7 @@ private
     access_start_dt = BclUpServer::TimeService.current_time
 
     url += "&phid=#{@phid}"
-    @full_graph = graph_service.load_graph(url: url)
+    @full_graph = graph_service.load_graph(url:)
 
     access_end_dt = BclUpServer::TimeService.current_time
     @access_time_s = access_end_dt - access_start_dt

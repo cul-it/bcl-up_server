@@ -11,7 +11,7 @@ module BclUpServer
 
     def perform
       # checking active_job_id? prevents race conditions for long running jobs
-      run_tests if BclUpServer::JobIdCache.active_job_id?(job_key: job_key, job_id: job_id, expires_in: 2.hours)
+      run_tests if BclUpServer::JobIdCache.active_job_id?(job_key:, job_id:, expires_in: 2.hours)
     end
 
   private
@@ -23,7 +23,7 @@ module BclUpServer
       scenario_run_registry_class.save_run(scenarios_results: status_log.to_a)
       BclUpServer.config.monitor_logger.debug("(#{self.class}##{__method__}-#{job_id}) COMPLETED monitoring tests")
       BclUpServer.config.performance_cache.write_all # write out cache after completing tests
-      BclUpServer::JobIdCache.reset_job_id(job_key: job_key)
+      BclUpServer::JobIdCache.reset_job_id(job_key:)
     end
 
     def log_results(authorities_list, results)

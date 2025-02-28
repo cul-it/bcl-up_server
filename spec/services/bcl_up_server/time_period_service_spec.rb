@@ -30,14 +30,14 @@ RSpec.describe BclUpServer::TimePeriodService do
             { scenario_run_registry: { dt_stamp: start_hour..end_hour } }
           end
           it 'returns where clause with dt_stamp range limited to a specified table' do
-            expect(described_class.where_clause_for_last_24_hours(dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_24_hours(dt_table:)).to eq expected_result
           end
         end
       end
 
       context 'and auth_table is present' do
         it 'raise error' do
-          expect { described_class.where_clause_for_last_24_hours(auth_table: auth_table) }
+          expect { described_class.where_clause_for_last_24_hours(auth_table:) }
             .to raise_error ArgumentError, "Do not specify auth_table when auth_name is not specified"
         end
       end
@@ -53,13 +53,13 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname' do
-            expect(described_class.where_clause_for_last_24_hours(auth_name: auth_name)).to eq expected_result
+            expect(described_class.where_clause_for_last_24_hours(auth_name:)).to eq expected_result
           end
         end
 
         context 'and dt_table is present' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_24_hours(auth_name: auth_name, dt_table: dt_table) }
+            expect { described_class.where_clause_for_last_24_hours(auth_name:, dt_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -68,7 +68,7 @@ RSpec.describe BclUpServer::TimePeriodService do
       context 'and auth_table is present' do
         context 'and dt_table is nil' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_24_hours(auth_name: auth_name, auth_table: auth_table) }
+            expect { described_class.where_clause_for_last_24_hours(auth_name:, auth_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -81,7 +81,7 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname limited to the specified tables' do
-            expect(described_class.where_clause_for_last_24_hours(auth_name: auth_name, auth_table: auth_table, dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_24_hours(auth_name:, auth_table:, dt_table:)).to eq expected_result
           end
         end
       end
@@ -108,14 +108,14 @@ RSpec.describe BclUpServer::TimePeriodService do
             { scenario_run_registry: { dt_stamp: start_day..end_day } }
           end
           it 'returns where clause with dt_stamp range limited to a specified table' do
-            expect(described_class.where_clause_for_last_30_days(dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_30_days(dt_table:)).to eq expected_result
           end
         end
       end
 
       context 'and auth_table is present' do
         it 'raise error' do
-          expect { described_class.where_clause_for_last_30_days(auth_table: auth_table) }
+          expect { described_class.where_clause_for_last_30_days(auth_table:) }
             .to raise_error ArgumentError, "Do not specify auth_table when auth_name is not specified"
         end
       end
@@ -131,13 +131,13 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname' do
-            expect(described_class.where_clause_for_last_30_days(auth_name: auth_name)).to eq expected_result
+            expect(described_class.where_clause_for_last_30_days(auth_name:)).to eq expected_result
           end
         end
 
         context 'and dt_table is present' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_30_days(auth_name: auth_name, dt_table: dt_table) }
+            expect { described_class.where_clause_for_last_30_days(auth_name:, dt_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -146,7 +146,7 @@ RSpec.describe BclUpServer::TimePeriodService do
       context 'and auth_table is present' do
         context 'and dt_table is nil' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_30_days(auth_name: auth_name, auth_table: auth_table) }
+            expect { described_class.where_clause_for_last_30_days(auth_name:, auth_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -159,7 +159,7 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname limited to the specified tables' do
-            expect(described_class.where_clause_for_last_30_days(auth_name: auth_name, auth_table: auth_table, dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_30_days(auth_name:, auth_table:, dt_table:)).to eq expected_result
           end
         end
       end
@@ -186,14 +186,14 @@ RSpec.describe BclUpServer::TimePeriodService do
             { scenario_run_registry: { dt_stamp: start_month..end_month } }
           end
           it 'returns where clause with dt_stamp range limited to a specified table' do
-            expect(described_class.where_clause_for_last_12_months(dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_12_months(dt_table:)).to eq expected_result
           end
         end
       end
 
       context 'and auth_table is present' do
         it 'raise error' do
-          expect { described_class.where_clause_for_last_12_months(auth_table: auth_table) }
+          expect { described_class.where_clause_for_last_12_months(auth_table:) }
             .to raise_error ArgumentError, "Do not specify auth_table when auth_name is not specified"
         end
       end
@@ -209,13 +209,13 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname' do
-            expect(described_class.where_clause_for_last_12_months(auth_name: auth_name)).to eq expected_result
+            expect(described_class.where_clause_for_last_12_months(auth_name:)).to eq expected_result
           end
         end
 
         context 'and dt_table is present' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_12_months(auth_name: auth_name, dt_table: dt_table) }
+            expect { described_class.where_clause_for_last_12_months(auth_name:, dt_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -224,7 +224,7 @@ RSpec.describe BclUpServer::TimePeriodService do
       context 'and auth_table is present' do
         context 'and dt_table is nil' do
           it 'raises error' do
-            expect { described_class.where_clause_for_last_12_months(auth_name: auth_name, auth_table: auth_table) }
+            expect { described_class.where_clause_for_last_12_months(auth_name:, auth_table:) }
               .to raise_error ArgumentError, "Either both table names need to be specified or neither"
           end
         end
@@ -237,7 +237,7 @@ RSpec.describe BclUpServer::TimePeriodService do
             }
           end
           it 'returns where clause with dt_stamp range and authname limited to the specified tables' do
-            expect(described_class.where_clause_for_last_12_months(auth_name: auth_name, auth_table: auth_table, dt_table: dt_table)).to eq expected_result
+            expect(described_class.where_clause_for_last_12_months(auth_name:, auth_table:, dt_table:)).to eq expected_result
           end
         end
       end

@@ -1,10 +1,14 @@
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_fixme.yml
+
 inherit_gem:
   bixby: bixby_default.yml
 
-inherit_from: .rubocop_fixme.yml
+
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 3.2
   DisplayCopNames: true
   Exclude:
     - 'db/**/*'
@@ -18,7 +22,7 @@ Lint/ImplicitStringConcatenation:
     - 'lib/generators/bcl_up_server/**/*'
 
 Metrics/BlockLength:
-  ExcludedMethods: ['included']
+  IgnoredMethods: [ 'included' ]
   Exclude:
     - 'bcl_up_server.gemspec'
     - 'spec/**/*.rb'

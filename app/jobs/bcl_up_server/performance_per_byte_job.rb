@@ -13,7 +13,7 @@ module BclUpServer
 
     def perform(n: 10, action: :search, authority_complexity_ratings: {})
       # checking active_job_id? prevents race conditions for long running jobs
-      generate_data_for_authorities(n, action, authority_complexity_ratings) if BclUpServer::JobIdCache.active_job_id?(job_key: job_key, job_id: job_id)
+      generate_data_for_authorities(n, action, authority_complexity_ratings) if BclUpServer::JobIdCache.active_job_id?(job_key:, job_id:)
     end
 
   private
@@ -28,7 +28,7 @@ module BclUpServer
                auths.each_with_object({}) { |authname, hash| hash[authname] = { action => generate_data(authname, action, n) } }
              end
       BclUpServer.config.monitor_logger.debug("(#{self.class}-#{job_id}) COMPLETED performance by byte data generation")
-      BclUpServer::JobIdCache.reset_job_id(job_key: job_key)
+      BclUpServer::JobIdCache.reset_job_id(job_key:)
       convert_to_csv(data, authority_complexity_ratings)
     end
 
@@ -39,7 +39,7 @@ module BclUpServer
     end
 
     def generate_data(authority_name, action, n)
-      data_service.calculate(authority_name: authority_name, action: action, n: n)
+      data_service.calculate(authority_name:, action:, n:)
       # graphing_service.generate_day_graph(authority_name: authority_name, action: action, data: data)
     end
 

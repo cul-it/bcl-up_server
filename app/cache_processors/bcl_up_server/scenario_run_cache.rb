@@ -7,7 +7,7 @@ module BclUpServer
 
       # Run connection tests
       def run_tests(force: false)
-        Rails.cache.fetch(cache_key, expires_in: next_expiry, race_condition_ttl: 30.seconds, force: force) do
+        Rails.cache.fetch(cache_key, expires_in: next_expiry, race_condition_ttl: 30.seconds, force:) do
           BclUpServer.config.monitor_logger.debug("(BclUpServer::ScenarioRunCache) - KICKING OFF TEST RUN (force: #{force})")
           BclUpServer::MonitorTestsJob.perform_later
           "Test run initiated at #{BclUpServer::TimeService.current_time}"

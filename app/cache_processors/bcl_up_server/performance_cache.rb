@@ -10,8 +10,8 @@ module BclUpServer
 
     def new_entry(authority:, action:)
       entry = { dt_stamp: BclUpServer::TimeService.current_time,
-                authority: authority,
-                action: action }
+                authority:,
+                action: }
       id = SecureRandom.uuid
       @cache[id] = entry
       id
@@ -24,7 +24,7 @@ module BclUpServer
     end
 
     def complete_entry(id:)
-      log(id: id)
+      log(id:)
       BclUpServer.config.performance_cache_logger.debug("#{self.class}##{__method__} - id: #{id}   cache memory: #{ObjectSpace.memsize_of @cache}")
       write_all if ObjectSpace.memsize_of(@cache) > BclUpServer.config.max_performance_cache_size
     end
@@ -39,10 +39,10 @@ module BclUpServer
       cache_to_write.each do |id, entry|
         next if incomplete? entry
         BclUpServer::PerformanceHistory.create(dt_stamp: entry[:dt_stamp], authority: entry[:authority],
-                                            action: entry[:action], action_time_ms: entry[:action_time_ms],
-                                            size_bytes: entry[:size_bytes], retrieve_time_ms: entry[:retrieve_time_ms],
-                                            graph_load_time_ms: entry[:graph_load_time_ms],
-                                            normalization_time_ms: entry[:normalization_time_ms])
+                                               action: entry[:action], action_time_ms: entry[:action_time_ms],
+                                               size_bytes: entry[:size_bytes], retrieve_time_ms: entry[:retrieve_time_ms],
+                                               graph_load_time_ms: entry[:graph_load_time_ms],
+                                               normalization_time_ms: entry[:normalization_time_ms])
         cache_to_write.delete(id)
       end
       log_write_all("(#{self.class}##{__method__})", size_before, cache_to_write.size)

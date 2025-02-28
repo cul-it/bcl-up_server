@@ -35,7 +35,7 @@ RSpec.describe 'Accuracy test' do # rubocop:disable RSpec/DescribeClass
     @status_log = BclUpServer::ScenarioLogger.new
     BclUpServer::AuthorityListerService.authorities_list.each do |authority_name|
       BclUpServer::AuthorityValidatorService.run(
-        authority_name: authority_name,
+        authority_name:,
         status_log: @status_log,
         validation_type: BclUpServer::ScenarioValidator::VALIDATE_ACCURACY
       )
