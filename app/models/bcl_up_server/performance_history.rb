@@ -75,7 +75,7 @@ module BclUpServer
       #     AGROVOC_LD4L_CACHE: { ... # same data for each authority  }
       #   }
       def performance_graph_data(force: false)
-        graph_data_service_class.calculate_graph_data(force: force)
+        graph_data_service_class.calculate_graph_data(force:)
       end
     end
   end
