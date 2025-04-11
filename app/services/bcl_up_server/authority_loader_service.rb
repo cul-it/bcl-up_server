@@ -13,7 +13,7 @@ module BclUpServer
           return nil if authority.blank?
         rescue Exception => e
           if status_log.present?
-            status_log.add(authority_name: authority_name,
+            status_log.add(authority_name:,
                            status: BclUpServer::ScenarioValidator::FAIL,
                            error_message: "Unable to load authority '#{authority_name}'; cause: #{e.message}")
           end
@@ -32,7 +32,7 @@ module BclUpServer
         authority = Qa::Authorities::LinkedData::GenericAuthority.new(authority_key(authority_name))
         if authority.blank?
           if status_log.present?
-            status_log.add(authority_name: authority_name,
+            status_log.add(authority_name:,
                            status: BclUpServer::ScenarioValidator::FAIL,
                            error_message: "Unable to load authority '#{authority_name}'; cause: UNKNOWN")
           end

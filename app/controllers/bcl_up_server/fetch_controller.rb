@@ -13,11 +13,11 @@ module BclUpServer
     # Sets up presenter with data to display in the UI
     def index
       flash[:error] = "Authority is required." if uri? && !authority_name?
-      @presenter = presenter_class.new(authorities_list: authorities_list,
+      @presenter = presenter_class.new(authorities_list:,
                                        authority: authority_name,
-                                       uri: uri,
-                                       format: format,
-                                       term_results: term_results)
+                                       uri:,
+                                       format:,
+                                       term_results:)
     end
 
   private
@@ -29,7 +29,7 @@ module BclUpServer
     # @return [Qa::Authorities::LinkedData::GenericAuthority] the instance of the QA authority
     def authority
       return unless authority_name?
-      @authority ||= BclUpServer::AuthorityLoaderService.load(authority_name: authority_name)
+      @authority ||= BclUpServer::AuthorityLoaderService.load(authority_name:)
     end
 
     def uri?
@@ -54,7 +54,7 @@ module BclUpServer
 
     def term_results
       return unless authority_name? && uri?
-      @term_results = authority.find(uri, format: format)
+      @term_results = authority.find(uri, format:)
     end
   end
 end

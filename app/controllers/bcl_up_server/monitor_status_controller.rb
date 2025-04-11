@@ -19,7 +19,7 @@ module BclUpServer
       @presenter = presenter_class.new(current_summary: latest_summary,
                                        current_failure_data: latest_failures,
                                        historical_summary_data: historical_data,
-                                       historical_up_down_data: historical_up_down_data,
+                                       historical_up_down_data:,
                                        performance_data: performance_table_data)
       BclUpServer.config.monitor_logger.debug("~~~~~~~~ DONE rendering monitor status")
       render 'index', status: :internal_server_error if latest_summary&.failing_authority_count&.positive?
@@ -147,7 +147,7 @@ module BclUpServer
       token = params.key?(:auth_token) ? params[:auth_token] : nil
       valid = Qa.config.valid_authority_reload_token?(token)
       return true if valid
-      msg = I18n.t('bcl_up_server.monitor_status.permission_denied', action: action)
+      msg = I18n.t('bcl_up_server.monitor_status.permission_denied', action:)
       logger.warn msg
       flash.now[:error] = msg
       false

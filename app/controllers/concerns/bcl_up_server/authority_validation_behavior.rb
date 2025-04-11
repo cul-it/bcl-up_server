@@ -41,7 +41,7 @@ module BclUpServer
     end
 
     def validate_authority(auth_name, validation_type)
-      validator_class.run(authority_name: auth_name, validation_type: validation_type, status_log: status_log)
+      validator_class.run(authority_name: auth_name, validation_type:, status_log:)
     end
 
     def list(authorities_list)
@@ -50,7 +50,7 @@ module BclUpServer
     end
 
     def list_scenarios(auth_name)
-      lister_class.scenarios_list(authority_name: auth_name, status_log: status_log)
+      lister_class.scenarios_list(authority_name: auth_name, status_log:)
     end
 
     def validating_accuracy?

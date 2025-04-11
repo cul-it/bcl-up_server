@@ -22,7 +22,7 @@ if it is up and running now.
 
 Tested with...
 
-* Ruby 3.1.2
+* Ruby 3.4.2
 * Rails 7.0.8
 
 ### Optional Prerequisites
@@ -116,7 +116,23 @@ To configure in-memory job queue, add the following to config/environments/produ
   config.active_job.queue_adapter = :async # runs in-memory; a crash will lose the job
 ```
 
-#### Test the install
+## **Testing**
+### Testing Gem Locally
+#### Testing with Rubocop and RSpec
+Run the following command to test:
+```bash
+  bundle exec rake ci
+```
+
+#### Testing with RSpec only
+Run the following command to test:
+```bash
+  bundle exec rake test_gem
+```
+
+---
+
+### Test the install
 
 * Start rails server with `rails s`
 * You should see the Home page.  Click the other nav menus to be sure you see content there as well.

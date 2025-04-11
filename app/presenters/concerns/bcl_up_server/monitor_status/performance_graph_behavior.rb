@@ -111,13 +111,13 @@ module BclUpServer::MonitorStatus
     end
 
     def performance_for_day_graph(auth_name, action)
-      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :day)
-      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :day)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action:, time_period: :day)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action:, time_period: :day)
       {
-        action: action,
+        action:,
         time_period: :day,
         graph: filepath,
-        exists: exists,
+        exists:,
         label: "Performance data for the last 24 hours.",
         authority_name: auth_name,
         base_id: "performance-of-#{auth_name}"
@@ -125,13 +125,13 @@ module BclUpServer::MonitorStatus
     end
 
     def performance_for_month_graph(auth_name, action)
-      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :month)
-      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :month)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action:, time_period: :month)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action:, time_period: :month)
       {
-        action: action,
+        action:,
         time_period: :month,
         graph: filepath,
-        exists: exists,
+        exists:,
         label: "Performance data for the last 30 days.",
         authority_name: auth_name,
         base_id: "performance-of-#{auth_name}"
@@ -139,13 +139,13 @@ module BclUpServer::MonitorStatus
     end
 
     def performance_for_year_graph(auth_name, action)
-      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action: action, time_period: :year)
-      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action: action, time_period: :year)
+      filepath = BclUpServer::PerformanceGraphingService.performance_graph_image_path(authority_name: auth_name, action:, time_period: :year)
+      exists = BclUpServer::PerformanceGraphingService.performance_graph_image_exists?(authority_name: auth_name, action:, time_period: :year)
       {
-        action: action,
+        action:,
         time_period: :year,
         graph: filepath,
-        exists: exists,
+        exists:,
         label: "Performance data for the last 12 months.",
         authority_name: auth_name,
         base_id: "performance-of-#{auth_name}"

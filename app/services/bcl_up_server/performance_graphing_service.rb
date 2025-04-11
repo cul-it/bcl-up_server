@@ -122,8 +122,8 @@ module BclUpServer
       end
 
       def log_failure(authority_name, action, time_period)
-        relative_path = performance_graph_image_path(authority_name: authority_name, action: action, time_period: time_period)
-        exists = performance_graph_image_exists?(authority_name: authority_name, action: action, time_period: time_period)
+        relative_path = performance_graph_image_path(authority_name:, action:, time_period:)
+        exists = performance_graph_image_exists?(authority_name:, action:, time_period:)
         BclUpServer.config.monitor_logger.warn("FAILED to write performance graph at #{relative_path}") unless exists
       end
     end

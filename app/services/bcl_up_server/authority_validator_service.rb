@@ -23,19 +23,19 @@ module BclUpServer
     # @param status_log [ScenarioLogger] the log that will hold the data about the scenarios and test results
     # @param validation_type [Symbol] the type of scenarios to run (e.g. VALIDATE_CONNECTIONS, VALIDATE_ACCURACY, ALL_VALIDATIONS)
     def self.run(authority_name:, status_log:, validation_type: DEFAULT_VALIDATION_TYPE)
-      scenarios = scenarios_loader_class.load(authority_name: authority_name, status_log: status_log)
+      scenarios = scenarios_loader_class.load(authority_name:, status_log:)
       return if scenarios.blank?
       run_terms(scenarios, status_log, validation_type)
       run_searches(scenarios, status_log, validation_type)
     end
 
     def self.run_terms(scenarios, status_log, validation_type)
-      scenarios.term_scenarios.each { |scenario| term_validator_class.new(scenario: scenario, status_log: status_log, validation_type: validation_type).run }
+      scenarios.term_scenarios.each { |scenario| term_validator_class.new(scenario:, status_log:, validation_type:).run }
     end
     private_class_method :run_terms
 
     def self.run_searches(scenarios, status_log, validation_type)
-      scenarios.search_scenarios.each { |scenario| search_validator_class.new(scenario: scenario, status_log: status_log, validation_type: validation_type).run }
+      scenarios.search_scenarios.each { |scenario| search_validator_class.new(scenario:, status_log:, validation_type:).run }
     end
     private_class_method :run_searches
   end

@@ -24,7 +24,7 @@ module BclUpServer
     def self.data(force: false)
       Rails.cache.fetch(PERFORMANCE_DATATABLE_DATA_CACHE_KEY,
                         expires_in: BclUpServer::CacheExpiryService.cache_expiry,
-                        race_condition_ttl: 5.minutes, force: force) do
+                        race_condition_ttl: 5.minutes, force:) do
         BclUpServer.config.monitor_logger.debug("(BclUpServer::PerformanceDatatableCache) - CALCULATING performance datatable stats (force: #{force})")
         performance_data_service.calculate_datatable_data
       end
