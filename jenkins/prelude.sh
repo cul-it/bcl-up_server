@@ -20,18 +20,26 @@ print_msg "💠 which bundle: $(which bundle)"
 print_msg "💠 bundle --version: $(bundle --version)"
 
 # Avoid native extension issues like with Nokogiri + GLIBC mismatch
+gem uninstall bundler
+gem install bundler -v 2.4.19
+
 rm -f Gemfile.
 bundle lock --add-platform ruby
 export BUNDLE_FORCE_RUBY_PLATFORM=true
-bundle config set --local force_ruby_platform true
+bundle _2.4.19_ config set --local force_ruby_platform true
 # Ensure Nokogiri gets compiled locally (not precompiled)
 gem uninstall nokogiri -aIx || true
+
+
+
+
 
 print_msg "💠 global bundle config: $(bundle config --global)"
 print_msg "💠 local bundle config: $(bundle config --local)"
 
 # Install dependencies
-bundle install
+#bundle install
+bundle _2.4.19_ install
 
 print_msg "💠 ENGINE_CART_DESTINATION: $ENGINE_CART_DESTINATION"
 print_msg "💠 RAILS_ROOT: $RAILS_ROOT"
