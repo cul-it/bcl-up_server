@@ -40,6 +40,7 @@ print_msg "💠 local bundle config: $(bundle config --local)"
 # Install dependencies
 #bundle install
 bundle _2.4.19_ install
+print_msg "💠 nokogiri info: $(bundle _2.4.19_ info nokogiri)"
 
 print_msg "💠 ENGINE_CART_DESTINATION: $ENGINE_CART_DESTINATION"
 print_msg "💠 RAILS_ROOT: $RAILS_ROOT"
@@ -49,18 +50,18 @@ bundle exec rake -T | grep engine_cart || echo "⚠️ engine_cart rake task not
 
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
-bundle exec rake engine_cart:generate
+bundle _2.4.19_ exec rake engine_cart:generate
 
 # Move into the generated test app
 cd .internal_test_app
 
 # Run your gem’s installer generator
 print_msg "💠 Running bcl_up_server:install generator"
-bundle exec rails generate bcl_up_server:install
+bundle _2.4.19_ exec rails generate bcl_up_server:install
 
 # Copy any migrations your gem provides
 print_msg "💠 Copying migrations"
-bundle exec rake bcl_up_server:install:migrations
+bundle _2.4.19_ exec rake bcl_up_server:install:migrations
 
 ## run database migrations
 #rake db:migrate
@@ -73,4 +74,4 @@ fi
 
 # Run database migrations
 print_msg "💠 Running database migrations"
-bundle exec rake db:migrate
+bundle _2.4.19_ exec rake db:migrate
