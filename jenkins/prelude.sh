@@ -21,6 +21,9 @@ bundle config build.sqlite3 \
 print_msg "💠 which bundle: $(which bundle)"
 print_msg "💠 bundle --version: $(bundle --version)"
 
+# Avoid native extension issues like with Nokogiri + GLIBC mismatch
+export BUNDLE_FORCE_RUBY_PLATFORM=true
+
 # Install dependencies
 bundle install
 
