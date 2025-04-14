@@ -10,8 +10,6 @@ print_header "💻 Executing prelude.sh"
 # Ensure the PATH includes the directory where Bundler is installed
 export PATH=$GEM_HOME/bin:$PATH
 
-# Force native gem compilation (avoid incompatible precompiled binaries with GLIBC)
-bundle config set force_ruby_platform true
 # Force use sqlite version in jenkins
 bundle config build.sqlite3 \
   --with-sqlite3-include=/usr/include \
@@ -23,6 +21,11 @@ print_msg "💠 bundle --version: $(bundle --version)"
 
 # Avoid native extension issues like with Nokogiri + GLIBC mismatch
 export BUNDLE_FORCE_RUBY_PLATFORM=true
+bundle config set --local force_ruby_platform true
+#bundle config set --global force_ruby_platform true
+
+print_msg "💠 global bundle config: $(bundle config --global)"
+print_msg "💠 local bundle config: $(bundle config --local)"
 
 # Install dependencies
 bundle install
