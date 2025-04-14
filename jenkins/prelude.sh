@@ -50,6 +50,8 @@ bundle exec rake -T | grep engine_cart || echo "⚠️ engine_cart rake task not
 
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
+export ENGINE_CART_RAILS_TEMPLATE=jenkins/rails_template.rb
+
 bundle _2.4.19_ exec rake engine_cart:generate
 
 # Move into the generated test app
