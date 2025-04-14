@@ -24,10 +24,15 @@ print_msg "💠 bundle --version: $(bundle --version)"
 # Install dependencies
 bundle install
 
+print_msg "💠 ENGINE_CART_DESTINATION: $ENGINE_CART_DESTINATION"
+print_msg "💠 RAILS_ROOT: $RAILS_ROOT"
+print_msg "💠 Checking for engine_cart rake task"
+bundle exec rake -T | grep engine_cart || echo "⚠️ engine_cart rake task not found"
+
+
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
-#bundle exec engine_cart generate
-bundle exec ruby -S engine_cart generate
+bundle exec engine_cart generate
 
 # Move into the generated test app
 cd .internal_test_app
