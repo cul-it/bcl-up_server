@@ -1,0 +1,3 @@
+# engine_cart.yml
+rails_options:
+  template: jenkins/rails_template.rb
