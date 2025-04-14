@@ -26,7 +26,8 @@ bundle install
 
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
-bundle exec engine_cart generate
+#bundle exec engine_cart generate
+bundle exec ruby -S engine_cart generate
 
 # Move into the generated test app
 cd .internal_test_app
