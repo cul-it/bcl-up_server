@@ -24,9 +24,16 @@ print_msg "💠 bundle --version: $(bundle --version)"
 # Install dependencies
 bundle install
 
-# Set the environment for the test database
-print_msg "💠 Setting environment for the test database"
-bin/rails db:environment:set RAILS_ENV=${RAILS_ENV}
+## Set the environment for the test database
+#print_msg "💠 Setting environment for the test database"
+#bin/rails db:environment:set RAILS_ENV=${RAILS_ENV}
+
+# Run your gem’s installer generator
+print_msg "💠 Running bcl_up_server:install generator"
+bundle exec rails generate bcl_up_server:install
+
+## run database migrations
+#rake db:migrate
 
 # Conditionally delete and recreate the database
 if [ "${DELETE_DATABASE}" = "true" ]; then
