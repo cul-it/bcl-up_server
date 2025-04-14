@@ -29,8 +29,7 @@ export BUNDLE_FORCE_RUBY_PLATFORM=true
 bundle _2.4.19_ config set --local force_ruby_platform true
 # Ensure Nokogiri gets compiled locally (not precompiled)
 gem uninstall nokogiri -aIx || true
-
-
+gem install nokogiri --platform=ruby
 
 
 
