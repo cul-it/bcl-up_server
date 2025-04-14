@@ -24,13 +24,20 @@ print_msg "💠 bundle --version: $(bundle --version)"
 # Install dependencies
 bundle install
 
-## Set the environment for the test database
-#print_msg "💠 Setting environment for the test database"
-#bin/rails db:environment:set RAILS_ENV=${RAILS_ENV}
+# Generate the internal test Rails app
+print_msg "💠 Generating internal test app"
+bundle exec engine_cart generate
+
+# Move into the generated test app
+cd .internal_test_app
 
 # Run your gem’s installer generator
 print_msg "💠 Running bcl_up_server:install generator"
 bundle exec rails generate bcl_up_server:install
+
+# Copy any migrations your gem provides
+print_msg "💠 Copying migrations"
+bundle exec rake bcl_up_server:install:migrations
 
 ## run database migrations
 #rake db:migrate
