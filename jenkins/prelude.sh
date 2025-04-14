@@ -55,6 +55,14 @@ bundle _2.4.19_ exec rake engine_cart:generate
 # Move into the generated test app
 cd .internal_test_app
 
+# After generation, fix any bad installs
+cd .internal_test_app
+bundle _2.4.19_ config set --local force_ruby_platform true
+gem uninstall nokogiri -aIx || true
+bundle _2.4.19_ install
+
+
+
 # Run your gem’s installer generator
 print_msg "💠 Running bcl_up_server:install generator"
 bundle _2.4.19_ exec rails generate bcl_up_server:install
