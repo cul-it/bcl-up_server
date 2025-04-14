@@ -24,7 +24,8 @@ rm -f Gemfile.
 bundle lock --add-platform ruby
 export BUNDLE_FORCE_RUBY_PLATFORM=true
 bundle config set --local force_ruby_platform true
-#bundle config set --global force_ruby_platform true
+# Ensure Nokogiri gets compiled locally (not precompiled)
+gem uninstall nokogiri -aIx || true
 
 print_msg "💠 global bundle config: $(bundle config --global)"
 print_msg "💠 local bundle config: $(bundle config --local)"
