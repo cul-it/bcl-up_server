@@ -20,6 +20,8 @@ print_msg "💠 which bundle: $(which bundle)"
 print_msg "💠 bundle --version: $(bundle --version)"
 
 # Avoid native extension issues like with Nokogiri + GLIBC mismatch
+rm -f Gemfile.
+bundle lock --add-platform ruby
 export BUNDLE_FORCE_RUBY_PLATFORM=true
 bundle config set --local force_ruby_platform true
 #bundle config set --global force_ruby_platform true
