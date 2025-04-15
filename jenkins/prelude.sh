@@ -54,7 +54,8 @@ export ENGINE_CART_RAILS_OPTIONS=" --template=$(pwd)/jenkins/rails_template.rb"
 
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
-bundle _2.4.19_ exec rake engine_cart:generate
+bundle exec rake engine_cart:generate
+#bundle _2.4.19_ exec rake engine_cart:generate
 
 
 # Move into the generated test app
