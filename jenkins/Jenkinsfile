@@ -74,20 +74,18 @@ pipeline {
             }
         }
 
-        //         stage('rubocop') {
-        //             steps {
-        //                 ansiColor('xterm') {
-        //                     sh '''
-        //                         set +x
-        //                         source scripts/log_utils.sh
-        //                         print_jenkins_stage "🚀 Jenkins Stage: RuboCop"
-        //                         jenkins/rubocop-check.sh
-        //                     '''
-        //                 }
-        //             }
-        //         }
-
-
+        stage('rubocop') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                        set +x
+                        source scripts/log_utils.sh
+                        print_jenkins_stage "🚀 Jenkins Stage: RuboCop"
+                        jenkins/rubocop-check.sh
+                    '''
+                }
+            }
+        }
 
         stage('Publish Coverage') {
             steps {

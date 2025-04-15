@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 set +x
-
 source scripts/log_utils.sh
 source jenkins/environment.sh
 

@@ -5,6 +5,9 @@ set +x
 source scripts/log_utils.sh
 source jenkins/environment.sh
 
+# Use env files in Gemfile.extra
+export JENKINS=true
+
 print_header "💻 Executing rubocop-check.sh"
 print_msg "💠 PATH: $PATH"
 
@@ -14,4 +17,5 @@ print_list "$(
 )"
 
 print_msg "💠 Running RuboCop..."
-bundle exec rubocop
+
+COVERAGE=true bundle exec rake test_rubocop
