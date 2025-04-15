@@ -16,6 +16,7 @@ AllCops:
     - 'spec/test_app_templates/**/*'
     - 'vendor/**/*'
     - 'lib/bcl_up_server/specs/**/*'
+    - 'lib/overrides/*'
 
 Lint/ImplicitStringConcatenation:
   Exclude:
