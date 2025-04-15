@@ -13,6 +13,9 @@ print_list "$(
   ls -l
 )"
 
+# Use env files in Gemfile.extra
+export JENKINS=true
+
 print_msg "💠 Running all rspec tests..."
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
