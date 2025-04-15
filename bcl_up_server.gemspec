@@ -44,7 +44,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'engine_cart', '~> 2.6'
   spec.add_development_dependency "factory_bot", '~> 4.4'
   spec.add_development_dependency 'i18n-tasks'
-  spec.add_development_dependency 'simplecov'
+  # spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'simplecov', '~> 0.21.2'
+
   # spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rails-controller-testing', '~> 1'
   spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.0'
