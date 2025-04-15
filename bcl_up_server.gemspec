@@ -32,19 +32,14 @@ Gem::Specification.new do |spec|
 
   # Produces dashboard charts on monitor status page
   spec.add_dependency 'gruff'
-  # spec.add_dependency 'nokogiri', '~> 1.18'
   spec.add_development_dependency 'better_errors' # provide debugging command line in
   spec.add_development_dependency 'binding_of_caller' # provides deep stack info used by better_errors
   spec.add_development_dependency 'bixby', '~> 5.0' # rubocop styleguide
-  # spec.add_development_dependency "capybara", '~> 3.29'
-  # spec.add_development_dependency 'capybara-maleficent', '~> 0.3.0'
-  # spec.add_development_dependency 'chromedriver-helper', '~> 2.1'
   spec.add_development_dependency 'deprecation'
   spec.add_development_dependency 'engine_cart', '~> 2.6'
   spec.add_development_dependency "factory_bot", '~> 4.4'
   spec.add_development_dependency 'i18n-tasks'
   spec.add_development_dependency 'simplecov'
-  # spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rails-controller-testing', '~> 1'
   spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.0'
   spec.add_development_dependency 'rspec-its', '~> 1.1'
@@ -53,9 +48,17 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webdrivers', '~> 4.4'
   spec.add_development_dependency 'webmock'
 
-  ########################################################
-  # Temporarily pinned dependencies. INCLUDE EXPLANATIONS.
-  #
+  ##########################################################
+  ## Commented out dependencies that dont seem to be used ##
+  ##########################################################
+  # spec.add_development_dependency 'sqlite3'
+  # spec.add_development_dependency "capybara", '~> 3.29'
+  # spec.add_development_dependency 'capybara-maleficent', '~> 0.3.0'
+  # spec.add_development_dependency 'chromedriver-helper', '~> 2.1'
+
+  ###########################################################
+  ## Temporarily pinned dependencies. INCLUDE EXPLANATIONS ##
+  ###########################################################
   # Pin sass-rails to 5.x because rails 5.x apps have this same dependency in their generated Gemfiles
   spec.add_dependency 'sass-rails', '~> 5.0'
 end

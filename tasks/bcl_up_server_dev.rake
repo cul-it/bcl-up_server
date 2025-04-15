@@ -16,7 +16,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 desc 'Run continuous integration build with Rubocop'
-task ci: ['engine_cart:generate', 'rubocop', 'spec']
+task test_all: ['engine_cart:generate', 'rubocop', 'spec']
 
 desc 'Run continuous integration build without Rspec'
 task test_gem: ['engine_cart:generate', 'spec']
@@ -24,4 +24,4 @@ task test_gem: ['engine_cart:generate', 'spec']
 desc 'Run continuous integration build without Rubocop'
 task test_rubocop: ['engine_cart:generate', 'rubocop']
 
-task default: :ci
+task default: :test_all
