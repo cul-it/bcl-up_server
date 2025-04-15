@@ -1,22 +1,14 @@
 # frozen_string_literal: true
 require 'linkeddata'
 require 'json'
+require 'simplecov'
+require 'coveralls'
 require 'byebug'
 require 'engine_cart'
 require 'rails'
 
-# ==============================================================================
-# Set up test coverage reporting. Use Coveralls if COVERALLS_REPO_TOKEN is set.
-# Only one coverage tool should initialize SimpleCov!
-# ==============================================================================
-
-require 'simplecov'
-
-if ENV['COVERALLS_REPO_TOKEN']
-  require 'coveralls'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-end
-
+# Set up test coverage reporting
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start('rails') do
   add_filter '/.internal_test_app'
   add_filter '/lib/generators'
@@ -24,10 +16,9 @@ SimpleCov.start('rails') do
   add_filter '/tasks'
   add_filter '/lib/qa/version.rb'
   add_filter '/lib/qa/engine.rb'
-  at_exit {} # disables default coverage diff logic that uses .last_run.json
 end
-
 SimpleCov.command_name 'spec'
+Coveralls.wear!
 
 # Load EngineCart
 EngineCart.load_application!
@@ -51,22 +42,6 @@ RSpec.configure do |config|
 
   # Disable Webmock if we choose so we can test against the authorities, instead of their mocks
   WebMock.disable! if ENV["WEBMOCK"] == "disabled"
-
-  config.after(:suite) do
-    begin
-      result = SimpleCov.result
-      SimpleCov.formatter.new.format(result)
-
-      if File.exist?(SimpleCov::ResultMerger.resultset_path)
-        merged = SimpleCov::ResultMerger.merged_result
-        puts "📊 Total Coverage: #{merged.covered_percent.round(2)}%"
-      else
-        warn "⚠️  Coverage diff skipped: no .last_run.json found"
-      end
-    rescue => e
-      warn "⚠️  SimpleCov result processing error: #{e.message}"
-    end
-  end
 end
 
 # Helper methods
