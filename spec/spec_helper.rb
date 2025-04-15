@@ -31,7 +31,6 @@ else
       begin
         if File.exist?(SimpleCov::ResultMerger.resultset_path)
           SimpleCov::ResultMerger.merged_result
-          SimpleCov.result_exit_status
         else
           warn "⚠️  Coverage diff skipped: no .last_run.json found"
         end

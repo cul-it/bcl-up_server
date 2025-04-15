@@ -10,8 +10,7 @@ gemspec path: File.expand_path('..', __FILE__)
 group :development, :test do
   # gem 'coveralls', require: false
   gem 'coveralls', github: 'lemurheavy/coveralls-ruby', require: false
-  # gem 'simplecov', require: false
-  gem 'simplecov', '>= 0.22.0', require: false
+  gem 'simplecov', require: false
   gem 'byebug'
 end
 
