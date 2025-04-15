@@ -29,6 +29,7 @@ module Kernel
         puts ""
         original_system("gem uninstall nokogiri -aIx || true")
         # original_system("bundle config set force_ruby_platform true")
+        original_system("gem install nokogiri --platform=ruby")
         ENV["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
       end
 
