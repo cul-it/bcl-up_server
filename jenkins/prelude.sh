@@ -49,7 +49,7 @@ bundle exec rake -T | grep engine_cart || echo "⚠️ engine_cart rake task not
 
 
 echo "✅ Using Jenkins template with ENGINE_CART_RAILS_OPTIONS"
-export ENGINE_CART_RAILS_OPTIONS="--skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test --template=$(pwd)/jenkins/rails_template.rb"
+export ENGINE_CART_RAILS_OPTIONS=" --template=$(pwd)/jenkins/rails_template.rb"
 
 
 # Generate the internal test Rails app
