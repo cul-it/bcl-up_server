@@ -57,9 +57,22 @@ print_msg "💠 Generating internal test app"
 bundle exec rake engine_cart:generate
 #bundle _2.4.19_ exec rake engine_cart:generate
 
+if [ -d ".internal_test_app" ]; then
+  print_msg "⚠️  .internal_test_app already exists before generation!"
+  print_msg "💠 Cleaning previous test app"
+  bundle exec rake engine_cart:clean
+else
+  print_msg "✅ No .internal_test_app found before generation"
+fi
+
+print_msg "💠 Generating internal test app"
+#bundle exec rake engine_cart:generate
+bundle _2.4.19_ exec rake engine_cart:generate
 
 # Move into the generated test app
+print_msg "📂 moving to .internal_test_app"
 cd .internal_test_app
+
 
 # After generation, fix any bad installs
 cd .internal_test_app
