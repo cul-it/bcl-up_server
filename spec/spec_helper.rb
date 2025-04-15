@@ -7,20 +7,22 @@ require 'byebug'
 require 'engine_cart'
 require 'rails'
 
-# Set up test coverage reporting
-unless SimpleCov.running
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-  SimpleCov.start('rails') do
-    add_filter '/.internal_test_app'
-    add_filter '/lib/generators'
-    add_filter '/spec'
-    add_filter '/tasks'
-    add_filter '/lib/qa/version.rb'
-    add_filter '/lib/qa/engine.rb'
-  end
-  SimpleCov.command_name 'spec'
+# default formatter or RcovFormatter (HTML + XML)
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+   SimpleCov::Formatter::HTMLFormatter,
+   SimpleCov::Formatter::RcovFormatter
+])
+
+SimpleCov.start('rails') do
+  add_filter '/.internal_test_app'
+  add_filter '/lib/generators'
+  add_filter '/spec'
+  add_filter '/tasks'
+  add_filter '/lib/qa/version.rb'
+  add_filter '/lib/qa/engine.rb'
 end
 
+SimpleCov.command_name 'spec'
 
 # Load EngineCart
 EngineCart.load_application!
