@@ -1,24 +1,30 @@
 # frozen_string_literal: true
 require 'linkeddata'
 require 'json'
-require 'simplecov'
-require 'coveralls'
 require 'byebug'
 require 'engine_cart'
 require 'rails'
 
-# Set up test coverage reporting
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start('rails') do
-  add_filter '/.internal_test_app'
-  add_filter '/lib/generators'
-  add_filter '/spec'
-  add_filter '/tasks'
-  add_filter '/lib/qa/version.rb'
-  add_filter '/lib/qa/engine.rb'
+# ==============================================================================
+# Set up test coverage reporting. Use Coveralls if COVERALLS_REPO_TOKEN is set.
+# Only one coverage tool should initialize SimpleCov!
+# ==============================================================================
+
+if ENV['COVERALLS_REPO_TOKEN']
+  require 'coveralls'
+  Coveralls.wear!('rails') # this starts SimpleCov internally
+else
+  require 'simplecov'
+  SimpleCov.start('rails') do
+    add_filter '/.internal_test_app'
+    add_filter '/lib/generators'
+    add_filter '/spec'
+    add_filter '/tasks'
+    add_filter '/lib/qa/version.rb'
+    add_filter '/lib/qa/engine.rb'
+  end
+  SimpleCov.command_name 'spec'
 end
-SimpleCov.command_name 'spec'
-Coveralls.wear!
 
 # Load EngineCart
 EngineCart.load_application!
