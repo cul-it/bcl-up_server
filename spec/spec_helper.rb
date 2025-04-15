@@ -25,7 +25,7 @@ else
 
     at_exit do
       result = SimpleCov.result
-      SimpleCov.formatter.format(result)
+      SimpleCov.formatter.new.format(result)
 
       # Skip coverage diff if last_run not available
       begin
