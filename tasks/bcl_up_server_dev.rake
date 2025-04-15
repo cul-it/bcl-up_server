@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# Load system override BEFORE anything else (esp. engine_cart)
+require_relative '../lib/overrides/kernel_patch'
 
 require 'bundler/gem_tasks'
 require 'engine_cart/rake_task'
