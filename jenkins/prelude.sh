@@ -61,11 +61,12 @@ else
   print_msg "✅ No .internal_test_app found before generation"
 fi
 
-print_msg "💠 Running engine_cart:generate..."
+print_msg "💠 bundle exec rake test_gem..."
 #bundle exec rake engine_cart:generate
 #bundle _2.4.19_ exec rake engine_cart:generate
 #BUNDLE_FORCE_RUBY_PLATFORM=true NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle _2.4.19_ exec rake engine_cart:generate
-env BUNDLE_FORCE_RUBY_PLATFORM=true NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle _2.4.19_ exec rake engine_cart:generate
+bundle exec rake test_gem
+
 
 # Move into the generated test app
 print_line
@@ -89,12 +90,12 @@ print_line
 print_line
 
 # Run your gem’s installer generator
-print_msg "💠 Running bcl_up_server:install generator"
-bundle _2.4.19_ exec rails generate bcl_up_server:install
+#print_msg "💠 Running bcl_up_server:install generator"
+#bundle _2.4.19_ exec rails generate bcl_up_server:install
 
 # Copy any migrations your gem provides
-print_msg "💠 Copying migrations"
-bundle _2.4.19_ exec rake bcl_up_server:install:migrations
+#print_msg "💠 Copying migrations"
+#bundle _2.4.19_ exec rake bcl_up_server:install:migrations
 
 ## run database migrations
 #rake db:migrate
