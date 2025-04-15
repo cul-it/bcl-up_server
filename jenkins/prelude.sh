@@ -24,14 +24,14 @@ gem uninstall bundler
 gem install bundler -v 2.4.19
 
 rm -f Gemfile.
-bundle lock --add-platform ruby
+export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 export BUNDLE_FORCE_RUBY_PLATFORM=true
 bundle _2.4.19_ config set --local force_ruby_platform true
 # Ensure Nokogiri gets compiled locally (not precompiled)
+print_msg "💠 nokogiri info (before): $(gem list | grep nokogiri)"
 gem uninstall nokogiri -aIx || true
 gem install nokogiri --platform=ruby
-
-
+print_msg "💠 nokogiri info (after): $(bundle info nokogiri || echo 'nokogiri not found')"
 
 print_msg "💠 global bundle config: $(bundle config --global)"
 print_msg "💠 local bundle config: $(bundle config --local)"
@@ -51,7 +51,6 @@ bundle exec rake -T | grep engine_cart || echo "⚠️ engine_cart rake task not
 echo "✅ Using Jenkins template with ENGINE_CART_RAILS_OPTIONS"
 export ENGINE_CART_RAILS_OPTIONS=" --template=$(pwd)/jenkins/rails_template.rb"
 
-
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
 bundle exec rake engine_cart:generate
@@ -70,17 +69,25 @@ print_msg "💠 Generating internal test app"
 bundle _2.4.19_ exec rake engine_cart:generate
 
 # Move into the generated test app
+print_line
+print_line
 print_msg "📂 moving to .internal_test_app"
 cd .internal_test_app
 
-
-# After generation, fix any bad installs
-cd .internal_test_app
+export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+export BUNDLE_FORCE_RUBY_PLATFORM=true
 bundle _2.4.19_ config set --local force_ruby_platform true
+# Ensure Nokogiri gets compiled locally (not precompiled)
+print_msg "💠 nokogiri info (before): $(gem list | grep nokogiri)"
 gem uninstall nokogiri -aIx || true
+gem install nokogiri --platform=ruby
+print_msg "💠 nokogiri info (after): $(bundle info nokogiri || echo 'nokogiri not found')"
+
+print_msg "💠 global bundle config: $(bundle config --global)"
+print_msg "💠 local bundle config: $(bundle config --local)"
 bundle _2.4.19_ install
-
-
+print_line
+print_line
 
 # Run your gem’s installer generator
 print_msg "💠 Running bcl_up_server:install generator"
