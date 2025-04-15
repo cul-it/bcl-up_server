@@ -13,5 +13,17 @@ print_list "$(
   ls -l
 )"
 
-print_msg "💠 Running all tests..."
-COVERAGE=true bundle exec rake ci
+print_msg "💠 Running all rspec tests..."
+# Generate the internal test Rails app
+print_msg "💠 Generating internal test app"
+if [ -d ".internal_test_app" ]; then
+  print_msg "⚠️  .internal_test_app already exists before generation!"
+  print_msg "💠 Cleaning previous test app"
+  bundle exec rake engine_cart:clean
+else
+  print_msg "✅ No .internal_test_app found before generation"
+fi
+
+print_msg "💠 bundle exec rake test_gem..."
+
+COVERAGE=true bundle exec rake test_gem
