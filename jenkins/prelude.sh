@@ -64,7 +64,8 @@ fi
 print_msg "💠 Running engine_cart:generate..."
 #bundle exec rake engine_cart:generate
 #bundle _2.4.19_ exec rake engine_cart:generate
-BUNDLE_FORCE_RUBY_PLATFORM=true NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle _2.4.19_ exec rake engine_cart:generate
+#BUNDLE_FORCE_RUBY_PLATFORM=true NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle _2.4.19_ exec rake engine_cart:generate
+env BUNDLE_FORCE_RUBY_PLATFORM=true NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle _2.4.19_ exec rake engine_cart:generate
 
 # Move into the generated test app
 print_line
