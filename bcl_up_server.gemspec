@@ -32,8 +32,7 @@ Gem::Specification.new do |spec|
 
   # Produces dashboard charts on monitor status page
   spec.add_dependency 'gruff'
-  spec.add_dependency 'nokogiri', '~> 1.18'
-
+  # spec.add_dependency 'nokogiri', '~> 1.18'
   spec.add_development_dependency 'better_errors' # provide debugging command line in
   spec.add_development_dependency 'binding_of_caller' # provides deep stack info used by better_errors
   spec.add_development_dependency 'bixby', '~> 5.0' # rubocop styleguide
@@ -45,8 +44,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_bot", '~> 4.4'
   spec.add_development_dependency 'i18n-tasks'
   spec.add_development_dependency 'simplecov'
-  # spec.add_development_dependency 'simplecov', '~> 0.21.2'
-
   # spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rails-controller-testing', '~> 1'
   spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.0'
