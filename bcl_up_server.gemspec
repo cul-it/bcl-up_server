@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   # Produces dashboard charts on monitor status page
   spec.add_dependency 'gruff'
-  spec.add_dependency 'nokogiri', '~> 1.18'
+  # spec.add_dependency 'nokogiri', '~> 1.18'
 
   spec.add_development_dependency 'better_errors' # provide debugging command line in
   spec.add_development_dependency 'binding_of_caller' # provides deep stack info used by better_errors
