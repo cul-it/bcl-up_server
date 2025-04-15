@@ -139,7 +139,7 @@ pipeline {
             sh 'jenkins/report-status-to-github.sh failure'
             script {
                 if ("${SLACK_MESSAGES}" == "true") {
-//                     slackSend channel: "#bluecore", color: "#ff0000", message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                    slackSend channel: "#bluecore", color: "#ff0000", message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
                 }
             }
         }

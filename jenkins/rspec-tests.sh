@@ -16,6 +16,7 @@ print_list "$(
 export JENKINS=true
 
 print_msg "💠 Running all rspec tests..."
+
 # Generate the internal test Rails app
 print_msg "💠 Generating internal test app"
 if [ -d ".internal_test_app" ]; then

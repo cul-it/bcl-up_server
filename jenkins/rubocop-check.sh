@@ -16,6 +16,6 @@ print_list "$(
   ls -l
 )"
 
-print_msg "💠 Running RuboCop..."
+print_msg "🤖 bundle exec rake test_rubocop..."
 
 COVERAGE=true bundle exec rake test_rubocop
