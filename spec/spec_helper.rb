@@ -22,7 +22,25 @@ else
     add_filter '/tasks'
     add_filter '/lib/qa/version.rb'
     add_filter '/lib/qa/engine.rb'
+
+    at_exit do
+      result = SimpleCov.result
+      SimpleCov.formatter.format(result)
+
+      # Skip coverage diff if last_run not available
+      begin
+        if File.exist?(SimpleCov::ResultMerger.resultset_path)
+          SimpleCov::ResultMerger.merged_result
+          SimpleCov.result_exit_status
+        else
+          warn "⚠️  Coverage diff skipped: no .last_run.json found"
+        end
+      rescue NoMethodError => e
+        warn "⚠️  Coverage diff skipped due to error: #{e.message}"
+      end
+    end
   end
+
   SimpleCov.command_name 'spec'
 end
 
