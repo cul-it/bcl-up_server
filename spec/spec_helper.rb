@@ -18,8 +18,6 @@ if ENV['COVERALLS_REPO_TOKEN']
 end
 
 SimpleCov.start('rails') do
-  enable_coverage :branch
-  enable_coverage :line
   add_filter '/.internal_test_app'
   add_filter '/lib/generators'
   add_filter '/spec'
