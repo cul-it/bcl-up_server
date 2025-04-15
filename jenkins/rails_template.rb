@@ -8,6 +8,8 @@ run "gem uninstall nokogiri -aIx || true"
 
 say_status :info, "force_ruby_platform true...", :blue
 run "bundle config set force_ruby_platform true"
+
+export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 say_status :info, "Install correct nokogiri...", :blue
 say_status :info, "##################################################", :blue
 run "gem install nokogiri --platform=ruby"
