@@ -1,0 +1,147 @@
+pipeline {
+    agent any
+    environment {
+        GIT_ACCESS_TOKEN = credentials('be6a5f7e-d674-4265-bdf9-f20267b9cee3')
+        JENKINS_PROJECT = "bcl-up_server-validate-pull-request"
+        SLACK_MESSAGES = "${env.JOB_NAME == 'BCL-UP Server Container Branch Testing' ? 'false' : 'true' }"
+        SKIP_RSPEC_TESTS = "${env.SKIP_RSPEC_TESTS ?: 'false'}" // Default to 'false' if undefined
+        DELETE_DATABASE = "${env.DELETE_DATABASE ?: 'false'}" // Default to 'false' if undefined
+        RAILS_ENV = "test" // Set RAILS_ENV to test
+    }
+
+    stages {
+        stage('Preflight check') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                        set +x
+                        source scripts/log_utils.sh
+                        print_jenkins_stage "🚀 Jenkins Stage: Preflight check"
+                        print_msg "💠 The build number is ${BUILD_NUMBER}"
+                        print_msg "💠 The branch is ${GIT_BRANCH}"
+                        print_msg "💠 The job is ${JOB_NAME}"
+                        print_msg "💠 Use slack messages? ${SLACK_MESSAGES}"
+                        print_msg "💠 User: ${USER}"
+                        print_msg "💠 Path: ${PATH}"
+                        print_msg "💠 Rails environment: ${RAILS_ENV}"
+                    '''
+                }
+            }
+        }
+
+        stage('Set up and run bundler') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                        set +x
+                        source scripts/log_utils.sh
+                        print_jenkins_stage "🚀 Jenkins Stage: Set up and run bundler (prelude.sh)"
+                        jenkins/prelude.sh
+                    '''
+                }
+                script {
+                    if ("${SLACK_MESSAGES}" == "true") {
+                        slackSend channel: "#bluecore", color: "#439FE0", message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                    }
+                }
+            }
+        }
+
+        stage('rspec tests') {
+            steps {
+                timeout(60) {
+                    script {
+                        if ("${SKIP_RSPEC_TESTS}" != "true") {
+                            wrap([$class: 'Xvfb', installationName: 'default', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: false, displayNameOffset: 0, installationName: 'default', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
+                                ansiColor('xterm') {
+                                    sh '''
+                                        set +x
+                                        source scripts/log_utils.sh
+                                        print_jenkins_stage "🚀 Jenkins Stage: rspec tests"
+                                        time jenkins/rspec-tests.sh
+                                    '''
+                                }
+                            }
+                        } else {
+                            sh '''
+                                set +x
+                                source scripts/log_utils.sh
+                                print_msg "⚠️ Skipping rspec tests"
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('rubocop') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                        set +x
+                        source scripts/log_utils.sh
+                        print_jenkins_stage "🚀 Jenkins Stage: RuboCop"
+                        jenkins/rubocop-check.sh
+                    '''
+                }
+            }
+        }
+
+        stage('Publish Coverage') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                        set +x
+                        source scripts/log_utils.sh
+                        print_jenkins_stage "🚀 Jenkins Stage: Publish Coverage"
+                        mkdir -p coverage
+                        chmod g+w coverage
+                        echo "dummy file to prevent copy error when there are no other files" > coverage/dummy-file.txt
+                    '''
+                }
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: "${WORKSPACE}/coverage/rcov",
+                    reportFiles: 'index.html',
+                    reportName: 'Code_Coverage_Report',
+                    reportTitles: 'BCL-UP-GEM-Cornell'
+                ])
+            }
+        }
+    }
+
+    post {
+        success {
+            ansiColor('xterm') {
+                sh '''
+                    set +x
+                    source scripts/log_utils.sh
+                    print_success "✅ The thrill of victory"
+                '''
+            }
+            sh 'jenkins/report-status-to-github.sh success'
+            script {
+                if ("${SLACK_MESSAGES}" == "true") {
+                    slackSend channel: "#bluecore", color: "#00ff00", message: "Build Successful - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                }
+            }
+        }
+        unsuccessful {
+            ansiColor('xterm') {
+                sh '''
+                    set +x
+                    source scripts/log_utils.sh
+                    print_error "❌ The agony of defeat"
+                '''
+            }
+            sh 'jenkins/report-status-to-github.sh failure'
+            script {
+                if ("${SLACK_MESSAGES}" == "true") {
+                    slackSend channel: "#bluecore", color: "#ff0000", message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                }
+            }
+        }
+    }
+}

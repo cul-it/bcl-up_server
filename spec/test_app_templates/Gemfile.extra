@@ -1,5 +1,10 @@
 # Use this file to reference specific commits of gems.
 
+if ENV['JENKINS'] == 'true'
+  ENV['BUNDLE_FORCE_RUBY_PLATFORM'] = 'true'
+  ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'true'
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
