@@ -103,7 +103,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: "${WORKSPACE}/coverage/rcov",
+                    reportDir: "${WORKSPACE}/coverage",
                     reportFiles: 'index.html',
                     reportName: 'Code_Coverage_Report',
                     reportTitles: 'BCL-UP-GEM-Cornell'
