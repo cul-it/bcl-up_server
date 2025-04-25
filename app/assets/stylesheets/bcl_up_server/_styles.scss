@@ -19,7 +19,12 @@ body {
 .round {
   border-radius: 4px;
 }
-
+.pad-0 {
+  padding: 0;
+}
+.m-0 {
+  margin: 0;
+}
 #content-wrapper {
   flex: 1 0 auto;
 }
