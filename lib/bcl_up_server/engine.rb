@@ -29,7 +29,6 @@ module BclUpServer
         app.config.assets.precompile += %w[ bcl_up_server/bcl_up_server.scss ]
         app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
       end
-
     end
   end
 end

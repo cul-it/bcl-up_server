@@ -30,6 +30,5 @@ module BclUpServer
       return if additional_items.nil?
       additional_items.each { |item| @leftmenu_items << item }
     end
-
   end
 end
