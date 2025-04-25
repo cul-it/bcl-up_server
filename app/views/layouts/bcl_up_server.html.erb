@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Authority Lookup Server</title>
+  <title>BCL-UP Server</title>
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,13 +20,9 @@
 <body>
 <section class="ld4l-identity" aria-label="Cornell" role="banner">
   <div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
-  <div class="container">
-    <!-- ############################    TODO LOOK INTO THIS   ###################################### -->
-    <a href="<%= main_app.root_path %>"><img src="<%= image_url('bcl_up_server/LD4L-bg.png') %>" class="header-logo"></a>
-    <a id="logo" class="navbar-brand" href="<%= main_app.root_path %>" data-no-turbolink="true">
-      <span class="institution-name"><%= t("bcl_up_server.application_name") %></span>
-    </a>
-  </div> <!-- /container -->
+  <div id="bc-header" class="container">
+    <a class="header-link" href="<%= main_app.root_path %>"><img src="<%= image_url('bcl_up_server/BCL-UP1.png') %>" class="header-logo" ></a>
+  </div>
 </section>
 
 <div class="container">
