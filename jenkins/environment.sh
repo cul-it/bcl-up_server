@@ -18,6 +18,15 @@ print_msg "💠 Ruby: $RUBYVERSION"
 GEM_HOME="/usr/local/rvm/gems/$RUBYVERSION"
 rvm use "$RUBYVERSION"
 
+# Check if nokogiri 1.18.7 is installed; if not, install it
+if ! gem list nokogiri -v 1.18.7 --installed > /dev/null 2>&1; then
+  print_msg "🔧 Installing nokogiri 1.18.7 for Ruby $RUBYVERSION..."
+  gem install nokogiri -v 1.18.7 --platform ruby
+else
+  print_msg "✅ nokogiri 1.18.7 already installed"
+fi
+
+
 # Copy environment file, or create one if it doesn't exist
 ENV_PATH="/cul/data/jenkins/environments/bcl-up_server.env"
 
