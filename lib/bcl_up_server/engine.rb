@@ -25,7 +25,7 @@ module BclUpServer
       app.config.assets.paths << config.root.join('app', 'assets', 'stylesheets')
       app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
 
-      if Rails.env.production?
+      unless Rails.env.development?
         app.config.assets.precompile += %w[ bcl_up_server/bcl_up_server.scss ]
         app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
       end
