@@ -15,22 +15,13 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = true
 end
 
-desc 'Run continuous integration build with Rubocop'
-desc 'Run continuous integration build with Rubocop'
-task :test_all do
-  rm_rf '.internal_test_app'  # Ensures clean state
-  Rake::Task['engine_cart:generate'].invoke
-  Rake::Task['rubocop'].invoke
-  Rake::Task['spec'].invoke
-end
+desc 'Run continuous integration build with Rubocop & RSpec'
+task test_all: ['engine_cart:generate', 'rubocop', 'spec']
 
-
-# task test_all: ['engine_cart:generate', 'rubocop', 'spec']
-
-desc 'Run continuous integration build without Rspec'
+desc 'Run continuous integration build with RSpec'
 task test_gem: ['engine_cart:generate', 'spec']
 
-desc 'Run continuous integration build without Rubocop'
+desc 'Run continuous integration build with Rubocop'
 task test_rubocop: ['engine_cart:generate', 'rubocop']
 
 task default: :test_all
