@@ -25,11 +25,11 @@ module BclUpServer
       app.config.assets.paths << config.root.join('app', 'assets', 'stylesheets')
       app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
 
-      # Precompile image assets
-      app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
+      if Rails.env.production?
+        app.config.assets.precompile += %w[ bcl_up_server/bcl_up_server.scss ]
+        app.config.assets.precompile += %w[*.png *.jpg *.ico *.gif *.svg]
+      end
 
-      # Precompile the main SCSS file from the gem
-      app.config.assets.precompile += %w[ bcl_up_server/bcl_up_server.scss ]
     end
   end
 end
