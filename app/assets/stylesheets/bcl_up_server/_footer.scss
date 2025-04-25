@@ -8,7 +8,24 @@ img.footer-logo {
 
 div.footer-logos {
   width: 100%;
-  text-align: center;
+  background-color: $bc-blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue-core-logo {
+  background-color: $bc-white;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 8px;
+  width: 124px;
+  padding-left: 8px;
+}
+.navbar-text {
+  color: $bc-white !important;
 }
 
 div.footer-logos a {

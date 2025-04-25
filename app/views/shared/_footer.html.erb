@@ -7,17 +7,18 @@
     </div>
     <div class="navbar-right">
       <div class="navbar-text text-right">
-        <p><%= t('bcl_up_server.footer.copyright_html') %></p>
+        <p><%= t('bcl_up_server.footer.copyright_html', year: Time.current.year).html_safe %></p>
         <p><%= t('bcl_up_server.footer.attribution_html') %></p>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="footer-logos">
-      <a href="https://uiowa.edu/" target="_blank"><img src="<%= image_url('bcl_up_server/iowa-logo.png') %>" class="footer-logo"></a>
+    <div class="footer-logos"   >
       <a href="http://cornell.edu" target="_blank"><img src="<%= image_url('bcl_up_server/cornell-reduced-white.svg') %>" class="footer-logo"></a>
       <a href="http://samvera.org" target="_blank"><img src="<%= image_url('bcl_up_server/samvera-fall-font1-1000w-light.png') %>" class="footer-logo"></a>
-      <a href="http://ld4l.org" target="_blank"><img src="<%= image_url('bcl_up_server/LD4L-bg.png') %>" class="footer-logo"></a>
+      <div class="blue-core-logo">
+        <a href="http://ld4l.org" target="_blank"><img src="<%= image_url('bcl_up_server/blue-core-v1.png') %>" class="footer-logo"></a>
+      </div>
     </div>
   </div>
 </footer>
