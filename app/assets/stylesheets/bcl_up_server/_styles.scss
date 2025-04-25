@@ -4,6 +4,20 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
+  background-color: $bc-white !important;
+  font-size: $bc-font-size !important;
+}
+
+.flex {
+  display: flex;
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.round {
+  border-radius: 4px;
 }
 
 #content-wrapper {
@@ -23,10 +37,10 @@ footer.site-footer {
   padding-right: 0px;
 }
 .container-fluid {
-  background-color: $bc-blue;
+  background-color: $bc-darkblue;
 }
 
-.ld4l-identity .container {
+.bluecore-identity .container {
   display: flex;
   justify-content: center;
   background: $bc-white none repeat scroll 0 0;

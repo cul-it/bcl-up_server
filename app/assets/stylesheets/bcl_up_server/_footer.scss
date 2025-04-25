@@ -8,7 +8,7 @@ img.footer-logo {
 
 div.footer-logos {
   width: 100%;
-  background-color: $bc-blue;
+  background-color: $bc-darkblue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,6 +26,11 @@ div.footer-logos {
 }
 .navbar-text {
   color: $bc-white !important;
+}
+
+a.navbar-link {
+  color: $bc-link !important;
+
 }
 
 div.footer-logos a {

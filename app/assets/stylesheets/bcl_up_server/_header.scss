@@ -6,7 +6,6 @@
 img.header-logo {
   height: 105px;
   width: 100%;
-  border-radius: 4px;
 }
 
 .header-link {
@@ -15,7 +14,6 @@ img.header-logo {
   width: 100%;
   border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 1px 1px 20px 0px rgba(0, 7, 12, 0.22);
 }
 
 /* Banner */
@@ -32,30 +30,20 @@ img.header-logo {
 #masthead {
   margin-top: 2px;
   border-radius: 0 0 4px 4px;
-  background-color: $bc-blue;
+  background-color: $bc-darkblue;
 }
 
 div.navbar-header {
-  background-color: $bc-blue;
+  background-color: $bc-darkblue;
 }
 
 ul.nav-menu, ul.nav-right-menu {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: $bc-blue;
-  width: 100%
 }
 
 ul.nav-menu li.left-menu {
   float: left;
-  background-color: $bc-blue;
-}
-
-ul.nav-menu li.right-menu {
-  float: right;
-  background-color: $bc-blue;
+  background-color: $bc-darkblue;
 }
 
 ul.nav-menu li a, ul.nav-right-menu li a {
@@ -82,8 +70,8 @@ ul.nav-right-menuli a {
   &:hover,
   &:focus {
     background-color: $bc-white;
-    color: $bc-blue;
+    color: $bc-darkblue;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 }
