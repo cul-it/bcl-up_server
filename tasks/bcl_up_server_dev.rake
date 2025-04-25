@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# Load system override BEFORE anything else (esp. engine_cart)
+require_relative '../lib/overrides/kernel_patch'
 
 require 'bundler/gem_tasks'
 require 'engine_cart/rake_task'
@@ -13,10 +15,13 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = true
 end
 
-desc 'Run continuous integration build with Rubocop'
-task ci: ['engine_cart:generate', 'rubocop', 'spec']
+desc 'Run continuous integration build with Rubocop & RSpec'
+task test_all: ['engine_cart:generate', 'rubocop', 'spec']
 
-desc 'Run continuous integration build without Rubocop'
+desc 'Run continuous integration build with RSpec'
 task test_gem: ['engine_cart:generate', 'spec']
 
-task default: :ci
+desc 'Run continuous integration build with Rubocop'
+task test_rubocop: ['engine_cart:generate', 'rubocop']
+
+task default: :test_all

@@ -115,13 +115,24 @@ To configure in-memory job queue, add the following to config/environments/produ
 ```
   config.active_job.queue_adapter = :async # runs in-memory; a crash will lose the job
 ```
+---
 
-## **Testing**
+## **Local Testing**
 ### Testing Gem Locally
-#### Testing with Rubocop and RSpec
+#### ⚠️ Important: ensure `bundle install` has been called before running tests
+```bash
+  bundle install
+```
+#### Testing with RSpec and Rubocop
 Run the following command to test:
 ```bash
-  bundle exec rake ci
+  bundle exec rake test_all
+```
+
+#### Testing with Rubocop only
+Run the following command to test:
+```bash
+  bundle exec rake test_rubocop
 ```
 
 #### Testing with RSpec only
